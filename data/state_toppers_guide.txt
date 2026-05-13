@@ -1,0 +1,41 @@
+STATE TOPPERS - How to Add Achievement Banners
+==============================================
+
+Each topper entry now supports these new fields:
+
+{
+  "name": "Student Name",
+  "rank": "Position",
+  "image": "static/images/photo.jpg",
+  "exam_type": "JEE Mains",      <-- Exam name (e.g., JEE, NEET, etc.)
+  "achievement_text": "99 Percentile",  <-- Achievement text to display
+  "banner_color": "#e63946"    <-- Hex color code for banner background
+}
+
+Fields Guide:
+-------------
+- exam_type: The exam name (e.g., "JEE Mains", "NEET", "Board Exam", etc.)
+- achievement_text: What they achieved (e.g., "99 Percentile", "AIR 50", etc.)
+- banner_color: Any hex color (e.g., "#e63946" for red, "#2a9d8f" for teal, etc.)
+
+To add a banner to a topper:
+1. Fill in exam_type, achievement_text, and banner_color
+2. Leave empty to hide the banner
+
+Example (already in first topper):
+{
+  "name": "Yumnam Rohen",
+  "rank": "8th Position",
+  "image": "static/images/state--1.png",
+  "exam_type": "JEE Mains",
+  "achievement_text": "99 Percentile",
+  "banner_color": "#e63946"
+}
+
+Color Ideas:
+- Red: #e63946
+- Blue: #1d3557
+- Green: #2a9d8f
+- Purple: #6a4c93
+- Orange: #f77f00
+- Gold: #d4a017

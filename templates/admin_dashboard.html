@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- In <head> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <meta charset="UTF-8">
+  <title>CSA Admin Dashboard</title>
+  <style>
+    :root {
+      --primary-color: #802400;
+      --accent-color: #aa2b04;
+      --hover-color: #b36e00;
+      --background-color: #f9f9f9;
+      --card-background: #fff;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+  
+    * {
+      box-sizing: border-box;
+    }
+  
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--background-color);
+      color: #333;
+    }
+  
+    .navbar {
+      background: var(--primary-color);
+      color: rgb(253, 244, 244);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.2rem;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 0;
+    }
+  
+    .tabs {
+  display: flex;
+  flex-wrap: wrap;
+  background: #f1f1f1;
+  padding: 1rem;
+  gap: 0.5rem;
+  justify-content: center;
+  border-bottom: 2px solid #ddd;
+  position: sticky;
+  top: 56px; /* Adjusted to reduce the gap */
+  z-index: 999;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin: 0;
+}
+
+  
+    .tabs button {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+  
+    .tabs button:hover {
+      background: #e6f0ff;
+      color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+  
+    .tabs button.active-tab {
+      background: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+  
+    .container {
+      padding: 2rem;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+  
+    .section-box {
+      display: none;
+      background: var(--card-background);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+  
+    .section-box h2 {
+      margin-top: 0;
+      color: var(--primary-color);
+      font-size: 1.5rem;
+    }
+  
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+  
+    input[type="text"], textarea, input[type="file"] {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.25rem;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+  
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+  
+    button[type="submit"] {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.4rem;
+      margin-top: 1rem;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+  
+    button[type="submit"]:hover {
+      background: var(--hover-color);
+    }
+  
+    .faculty-list {
+      margin-bottom: 2rem;
+    }
+  
+    hr {
+      border: none;
+      border-top: 1px solid #ddd;
+      margin: 1.5rem 0;
+    }
+  
+    .img-preview {
+      display: block;
+      max-width: 150px;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+  
+    .flex-split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+  
+    .half {
+      flex: 1;
+      min-width: 300px;
+    }
+  
+    .horizontal-scroll {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+    }
+  </style>
+  
+  <script>
+    function loadSection(id) {
+      document.querySelectorAll('.section-box').forEach(e => e.style.display = 'none');
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active-tab'));
+      document.getElementById(id).style.display = 'block';
+      const activeBtn = document.querySelector(`.tabs button[onclick*="${id}"]`);
+      if (activeBtn) activeBtn.classList.add('active-tab');
+    }
+    window.onload = () => loadSection('about_section');
+  </script>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">CSA Admin Panel</div>
+    <a href="/admin/logout">Logout</a>
+  </div>
+
+  <div class="tabs">
+    <button onclick="loadSection('about_section')">About</button>
+    <button onclick="loadSection('heads_section')">Heads</button>
+    <button onclick="loadSection('state_toppers')">State Toppers</button>
+    <button onclick="loadSection('subject_toppers')">Subject Toppers</button>
+    <button onclick="loadSection('ad_section')">Ad Section</button>
+    <button onclick="loadSection('faculties_section')">Faculties</button>
+    <button onclick="loadSection('album')">Album</button>
+    <button onclick="loadSection('admission_section')">Admission</button>
+    <button onclick="loadSection('hostel_carousel_images')">Hostel</button>
+    <button onclick="loadSection('map_section')">Map</button>
+    <button onclick="loadSection('layout')">Layout</button>
+  </div>
+
+  <div class="container">
+<!-- Faculties Section -->
+<div class="section-box" id="faculties_section">
+  <h2>Faculties Section</h2>
+  <div class="flex-split">
+    <div class="half">
+      <h3>All Faculty Members</h3>
+      <div style="max-height: 400px; overflow-y: auto;">
+        {% for f in data.faculties_section %}
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; cursor: pointer;" onclick="loadFaculty('{{ f.id }}')">
+          <img src="/{{ f.image }}" class="img-preview" style="max-width: 50px;">
+          <div>
+            <strong>{{ f.name }}</strong><br>
+            <small>{{ f.subject }}</small>
+          </div>
+          <form method="POST" action="/admin/delete/faculty/{{ f.id }}" style="margin-left:auto" onsubmit="return confirmDelete(event)">
+            <button type="submit" style="background: crimson; color: white; border: none; padding: 0.3rem 0.6rem; border-radius: 4px; cursor: pointer;">Delete</button>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="half">
+      <h3>Edit Faculty</h3>
+      <form id="editFacultyForm" action="/admin/update/faculty_edit" method="POST" enctype="multipart/form-data" onsubmit="return confirmUpdateFaculty(event)">
+        <input type="hidden" id="edit_id" name="id">
+        <label>Name</label>
+        <input type="text" id="edit_name" name="name">
+        <label>Subject</label>
+        <input type="text" id="edit_subject" name="subject">
+        <label>Qualification</label>
+        <input type="text" id="edit_qualification" name="qualification">
+        <label>Change Image</label>
+        <input type="file" name="image">
+        <button type="submit">Update Faculty</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <h3>Add New Faculty</h3>
+  <form action="/admin/update/faculty_add" method="POST" enctype="multipart/form-data" onsubmit="return confirmAddFaculty(event)">
+    <label>Name</label>
+    <input type="text" name="name" required>
+    <label>Subject</label>
+    <input type="text" name="subject" required>
+    <label>Qualification</label>
+    <input type="text" name="qualification" required>
+    <label>Upload Image</label>
+    <input type="file" name="image">
+    <button type="submit">Add Faculty</button>
+  </form>
+</div>
+
+<script id="faculty-data" type="application/json">
+  {{ data.faculties_section|tojson|safe }}
+</script>
+
+<script>
+  function loadFaculty(facultyId) {
+    const facultyData = JSON.parse(document.getElementById('faculty-data').textContent);
+    const faculty = facultyData.find(f => f.id === facultyId);
+    if (faculty) {
+      document.getElementById('edit_id').value = faculty.id;
+      document.getElementById('edit_name').value = faculty.name;
+      document.getElementById('edit_subject').value = faculty.subject;
+      document.getElementById('edit_qualification').value = faculty.qualification;
+    }
+  }
+  
+
+  
+  function confirmUpdateFaculty(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Update Faculty?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.target.submit();
+      }
+    });
+  }
+  
+  function confirmAddFaculty(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Add Faculty?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, add'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.target.submit();
+      }
+    });
+  }
+  
+  function confirmUpdateAbout(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Update About Section?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.target.submit();
+      }
+    });
+  }
+  
+  window.addEventListener('load', () => {
+    const successMessage = '{{ get_flashed_messages(category_filter=["success"])|first }}';
+    if (successMessage) {
+      Swal.fire({
+        title: 'Success',
+        text: successMessage,
+        icon: 'success',
+        confirmButtonText: 'OK'
+      });
+    }
+  });
+  </script>
+
+<!-- About Section -->
+<div class="section-box" id="about_section">
+  <h2>About Section</h2>
+  <form action="/admin/update/about_section" method="POST" enctype="multipart/form-data" onsubmit="return confirmUpdateAbout(event)">
+    <div class="flex-split">
+      <div class="half">
+        <label>Carousel Images</label>
+        {% for img in data.about_section.carousel_images %}
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+          <img src="/{{ img }}" class="img-preview" style="max-width: 120px;">
+          <div>
+            <label>Replace Image</label>
+            <input type="file" name="replace_image_{{ loop.index0 }}">
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="half">
+        <label>Title</label>
+        <input type="text" name="title" value="{{ data.about_section.title }}">
+        {% for p in data.about_section.paragraphs %}
+        <label>Paragraph {{ loop.index }}</label>
+        <textarea name="paragraphs">{{ p }}</textarea>
+        {% endfor %}
+      </div>
+    </div>
+    <button type="submit" style="margin-top: 1rem;">Update About Section</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- State Toppers Section -->
+<div class="section-box" id="state_toppers">
+  <h2>State Toppers</h2>
+
+  <!-- Update Form -->
+  <form id="updateStateToppersForm" action="/admin/update/state_toppers" method="POST" enctype="multipart/form-data" onsubmit="return confirmStateToppersUpdate(event)">
+    <div class="state-toppers-scroll" style="display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 1rem;">
+      {% for s in data.state_toppers %}
+      <div class="topper-card" style="flex: 0 0 260px; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; position: relative; background: #fff;">
+
+        <!-- Delete Button -->
+        <button type="button" class="delete-topper-btn" data-index="{{ loop.index0 }}" style="position: absolute; top: 10px; right: 10px; background: crimson; color: white; border: none; padding: 0.4rem 0.6rem; border-radius: 4px; cursor: pointer;">✕</button>
+
+        <img src="/{{ s.image }}" class="img-preview" style="width: 100%; max-width: 120px; border-radius: 6px;">
+        <input type="hidden" name="image_existing_{{ loop.index0 }}" value="{{ s.image }}">
+
+        <label>Position</label>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <input type="number" name="rank_{{ loop.index0 }}" value="{{ s.rank | replace('th Position','') | replace('st Position','') | replace('nd Position','') | replace('rd Position','') }}" required min="1" style="width: 60px;">
+          <span>Position</span>
+        </div>
+
+        <label>Name</label>
+        <input type="text" name="name_{{ loop.index0 }}" value="{{ s.name }}" required>
+
+        <label>Change Image</label>
+        <input type="file" name="image_file_{{ loop.index0 }}">
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit" style="margin-top: 1rem; background: var(--primary-color); color: white; padding: 0.6rem 1.2rem; border-radius: 30px; border: none; font-size: 1rem; cursor: pointer; float: right;">
+      💾 Save All Changes
+    </button>
+  </form>
+
+  {% for s in data.state_toppers %}
+  <!-- Delete form outside main update form -->
+  <form id="deleteForm{{ loop.index0 }}" action="/admin/delete/state_topper/{{ loop.index0 }}" method="POST"></form>
+  {% endfor %}
+
+  <div style="clear: both;"></div>
+  <hr>
+
+  <!-- Add Form -->
+  <h3>Add New State Topper</h3>
+  <form action="/admin/update/state_topper_add" method="POST" enctype="multipart/form-data" onsubmit="return confirmAddTopper(event)">
+    <label>Name</label>
+    <input type="text" name="new_name" required>
+    <label>Position</label>
+    <div style="display: flex; align-items: center; gap: 0.5rem;">
+      <input type="number" name="new_rank" required min="1" style="width: 60px;">
+      <span>Position</span>
+    </div>
+    <label>Image</label>
+    <input type="file" name="new_image" required>
+    <button type="submit" style="margin-top: 0.5rem;">Add State Topper</button>
+  </form>
+</div>
+
+
+<script>
+function getOrdinalSuffix(n) {
+  const s = ["th", "st", "nd", "rd"], v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+function confirmStateToppersUpdate(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Save all edits to State Toppers?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, save',
+    customClass: {
+      popup: 'swal2-popup',
+      confirmButton: 'swal2-confirm',
+      cancelButton: 'swal2-cancel'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+
+function confirmAddTopper(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Add new State Topper?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, add',
+    customClass: {
+      popup: 'swal2-popup',
+      confirmButton: 'swal2-confirm',
+      cancelButton: 'swal2-cancel'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+
+function submitDeleteForm(index) {
+  Swal.fire({
+    title: 'Delete this topper?',
+    text: "This action cannot be undone!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!',
+    customClass: {
+      popup: 'swal2-popup',
+      confirmButton: 'swal2-confirm',
+      cancelButton: 'swal2-cancel'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      document.getElementById(`deleteForm${index}`).submit();
+    }
+  });
+}
+
+window.addEventListener('load', () => {
+  const flash = "{{ get_flashed_messages(category_filter=['success'])|first }}";
+  if (flash) {
+    Swal.fire({
+      icon: 'success',
+      title: flash,
+      toast: true,
+      position: 'top-end',
+      timer: 3000,
+      showConfirmButton: false,
+      customClass: {
+        popup: 'swal2-popup',
+      }
+    });
+  }
+});
+
+// Attach JS handler to delete buttons
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.delete-topper-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const index = btn.dataset.index;
+      submitDeleteForm(index);
+    });
+  });
+});
+</script>
+
+<style>
+.swal2-popup {
+  font-size: 1.1rem !important;
+  border-radius: 10px !important;
+  padding: 1.5rem !important;
+}
+.swal2-confirm, .swal2-cancel {
+  font-size: 1rem !important;
+  padding: 0.6rem 1.2rem !important;
+  border-radius: 6px !important;
+}
+</style>
+
+
+
+
+
+
+<!-- Subject Toppers Section -->
+<div class="section-box" id="subject_toppers">
+  <h2>Subject Toppers</h2>
+
+  <!-- Update Form -->
+  <form action="/admin/update/subject_toppers" method="POST" enctype="multipart/form-data" onsubmit="return confirmSubjectToppersUpdate(event)">
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+      {% for year, details in data.subject_toppers.items() %}
+      <div style="flex: 1 1 250px; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; position: relative; background: #fff;" data-year="{{ year }}">
+        <label>Year</label>
+        <input type="text" name="year_{{ loop.index0 }}" value="{{ year }}" readonly style="width: 100%; background: #f0f0f0;">
+
+        <label>Title</label>
+        <input type="text" name="title_{{ loop.index0 }}" value="{{ details.title }}" required style="width: 100%;">
+
+        <label>Image Preview</label><br>
+        <img src="{{ details.image }}" style="width: 100%; max-width: 150px; margin-bottom: 0.5rem; border-radius: 6px;">
+        <input type="file" name="image_{{ loop.index0 }}">
+        <input type="hidden" name="image_existing_{{ loop.index0 }}" value="{{ details.image }}">
+
+        <!-- Delete Button -->
+        <button type="button" onclick="deleteSubjectTopper('{{ year }}')" style="margin-top: 0.5rem; background: crimson; color: white; border: none; padding: 0.4rem 0.6rem; border-radius: 4px; cursor: pointer; width: 100%;">
+          Delete
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+
+    <input type="hidden" name="count" value="{{ data.subject_toppers|length }}">
+    <button type="submit" style="margin-top: 1rem; background: var(--primary-color); color: white; padding: 0.6rem 1.2rem; border-radius: 30px; border: none; font-size: 1rem; cursor: pointer; float: right;">
+      💾 Save All Changes
+    </button>
+  </form>
+
+  <div style="clear: both;"></div>
+  <hr>
+
+  <!-- Add New Subject Topper -->
+  <h3>Add New Subject Topper</h3>
+  <form action="/admin/update/subject_toppers_add" method="POST" enctype="multipart/form-data" onsubmit="return confirmAddSubjectTopper(event)">
+    <label>Year</label>
+    <input type="text" name="new_year" required>
+
+    <label>Title</label>
+    <input type="text" name="new_title" required>
+
+    <label>Image</label>
+    <input type="file" name="new_image" required>
+
+    <button type="submit" style="margin-top: 0.5rem;">Add Subject Topper</button>
+  </form>
+</div>
+
+<script>
+function confirmSubjectToppersUpdate(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Update Subject Toppers?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, update it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+
+function confirmAddSubjectTopper(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Add new Subject Topper?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, add'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+
+function deleteSubjectTopper(year) {
+  Swal.fire({
+    title: `Delete topper for ${year}?`,
+    text: "This action cannot be undone!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Create a dynamic form and submit
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = `/admin/delete/subject_topper/${year}`;
+      document.body.appendChild(form);
+      form.submit();
+    }
+  });
+}
+</script>
+
+
+
+
+
+
+<!-- Heads Section -->
+<div class="section-box" id="heads_section">
+  <h2>Heads Section</h2>
+  <form action="/admin/update/heads_section" method="POST" enctype="multipart/form-data" onsubmit="return confirmHeadsUpdate(event)">
+    <div class="flex-split" style="flex-wrap: wrap; gap: 2rem;">
+      {% for card in data.heads_section.cards %}
+      <div style="flex: 1 1 45%; border: 1px solid #ddd; padding: 1rem; border-radius: 8px; position: relative;">
+        <img src="/{{ card.image }}" class="img-preview" style="max-width: 100px;">
+        <input type="hidden" name="image_{{ loop.index0 }}" value="{{ card.image }}">
+
+        <label>Name</label>
+        <input type="text" name="name_{{ loop.index0 }}" value="{{ card.name }}">
+
+        <label>Role</label>
+        <input type="text" name="role_{{ loop.index0 }}" value="{{ card.role }}">
+
+        <label>Popup Title</label>
+        <input type="text" name="popup_title_{{ loop.index0 }}" value="{{ card.popup_title }}">
+
+        <label>Popup Text</label>
+        <textarea name="popup_text_{{ loop.index0 }}">{{ card.popup_text }}</textarea>
+
+        <label>Side</label>
+        <select name="side_{{ loop.index0 }}">
+          <option value="left" {% if card.side == 'left' %}selected{% endif %}>Left</option>
+          <option value="right" {% if card.side == 'right' %}selected{% endif %}>Right</option>
+        </select>
+
+        <label>Change Image</label>
+        <input type="file" name="image_file_{{ loop.index0 }}">
+      </div>
+      {% endfor %}
+    </div>
+    <button type="submit" style="margin-top: 1rem;">Update Heads Section</button>
+  </form>
+</div>
+
+<script>
+function confirmHeadsUpdate(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Update Heads Section?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, update it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+</script>
+
+
+
+
+<div class="section-box" id="ad_section">
+  <h2>Advertisement Section</h2>
+  <form action="/admin/update/ad_section" method="POST" enctype="multipart/form-data" onsubmit="return confirmAdUpdate(event)">
+    <div class="flex-split">
+      <div class="half">
+        <label>Left Image</label>
+        {% if data.ad_section.left_image %}
+          <img src="/{{ data.ad_section.left_image }}" class="img-preview">
+        {% endif %}
+        <input type="file" name="left_image">
+      </div>
+
+      <div class="half">
+        <label>Right Image</label>
+        {% if data.ad_section.right_image %}
+          <img src="/{{ data.ad_section.right_image }}" class="img-preview">
+        {% endif %}
+        <input type="file" name="right_image">
+      </div>
+    </div>
+    <button type="submit">Update Ad Section</button>
+  </form>
+</div>
+
+<script>
+function confirmAdUpdate(event) {
+  event.preventDefault();
+  Swal.fire({
+    title: 'Update Ad Section?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, update it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      event.target.submit();
+    }
+  });
+}
+</script>
+<!-- Album Admin Section -->
+
+<div class="section-box" id="album">
+  <h2>📸 Manage Album</h2>
+
+  <!-- Display Album Items Horizontally -->
+  <div class="album-scroll-container" style="display: flex; overflow-x: auto; gap: 1rem; padding: 1rem;">
+    {% for item in data.album %}
+    <div class="album-card" style="min-width: 200px; background: #fff; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); padding: 1rem; position: relative;">
+      <img src="/{{ item.image }}" alt="Album Image" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px;">
+
+      <p style="margin: 10px 0;">{{ item.caption }}</p>
+
+      <form class="update-form" data-id="{{ item.id }}" enctype="multipart/form-data">
+        <input type="text" name="caption" placeholder="New caption" style="width: 100%;" />
+        <input type="file" name="image" accept="image/*" />
+        <button type="submit">Update</button>
+      </form>
+
+      <button class="delete-btn" data-id="{{ item.id }}" style="position: absolute; top: 10px; right: 10px;">❌</button>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Add New Album Item -->
+  <h3>Add New</h3>
+  <form id="add-album-form" enctype="multipart/form-data">
+    <input type="text" name="caption" placeholder="Caption" required />
+    <input type="file" name="image" accept="image/*" required />
+    <button type="submit">Add</button>
+  </form>
+</div>
+
+<!-- SweetAlert2 Script -->
+
+
+<script>
+  // Delete Album Item
+  document.querySelectorAll('.delete-btn').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This album item will be deleted!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`/admin/album/delete/${id}`, { method: 'POST' })
+            .then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                Swal.fire('Deleted!', 'Album item has been deleted.', 'success')
+                  .then(() => location.reload());
+              }
+            });
+        }
+      });
+    };
+  });
+
+  // Update Album Item
+  document.querySelectorAll('.update-form').forEach(form => {
+    form.onsubmit = e => {
+      e.preventDefault();
+      const id = form.dataset.id;
+      const formData = new FormData(form);
+      const caption = form.querySelector('input[name="caption"]').value.trim();
+      const image = form.querySelector('input[name="image"]').files[0];
+
+      if (!caption && !image) {
+        Swal.fire('Nothing to update!', 'Please change caption or select a new image.', 'info');
+        return;
+      }
+
+      Swal.fire({
+        title: 'Confirm Update',
+        text: 'Do you want to update this album item?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Update',
+        cancelButtonText: 'Cancel'
+      }).then(result => {
+        if (result.isConfirmed) {
+          fetch(`/admin/album/update/${id}`, {
+            method: 'POST',
+            body: formData
+          }).then(res => res.json())
+            .then(data => {
+              if (data.success) {
+                Swal.fire('Updated!', 'Album item updated successfully.', 'success')
+                  .then(() => location.reload());
+              }
+            });
+        }
+      });
+    };
+  });
+
+  // Add Album Item
+  document.getElementById('add-album-form').onsubmit = e => {
+    e.preventDefault();
+    const form = e.target;
+    const caption = form.caption.value.trim();
+    const image = form.image.files[0];
+
+    if (!caption || !image) {
+      Swal.fire('Missing Fields!', 'Please provide both caption and image.', 'warning');
+      return;
+    }
+
+    const formData = new FormData(form);
+
+    Swal.fire({
+      title: 'Add New Album Item?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Add',
+      cancelButtonText: 'Cancel'
+    }).then(result => {
+      if (result.isConfirmed) {
+        fetch('/admin/album/add', {
+          method: 'POST',
+          body: formData
+        }).then(res => res.json())
+          .then(data => {
+            if (data.success) {
+              Swal.fire('Added!', 'New album item added.', 'success')
+                .then(() => location.reload());
+            }
+          });
+      }
+    });
+  };
+</script>
+
+
+
+<!-- Admin Admission Section -->
+<div class="section-box" id="admission_section" style="display: none;">
+  <h2>Admission Rules Editor</h2>
+
+  <form action="/admin/update/admission_section" method="POST" onsubmit="return confirmAdmissionUpdate(event)">
+    <label for="rules">Admission Rules (one per line)</label>
+    <textarea name="rules" rows="8" style="width: 100%;">{% for rule in data.admission_section.rules %}{{ rule }}&#10;{% endfor %}</textarea>
+    <button type="submit" style="margin-top: 1rem;">💾 Update Rules</button>
+  </form>
+</div>
+<script>
+  function confirmAdmissionUpdate(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Update Admission Rules?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update'
+    }).then(result => {
+      if (result.isConfirmed) {
+        event.target.submit();
+      }
+    });
+  }
+  </script>
+  
+
+
+
+
+
+
+
+<!-- Hostel Carousel Section -->
+<div class="section-box" id="hostel_carousel_images">
+  <h2>Hostel Carousel Images</h2>
+  <div style="display: flex; gap: 1rem; overflow-x: auto; padding: 1rem 0;">
+    {% for img in data.hostel_carousel_images %}
+  {% set idx = loop.index0 %}
+    <div style="min-width: 200px; position: relative; text-align: center;">
+      <img src="/{{ img }}" class="img-preview" style="max-width: 200px; max-height: 200px;">
+      <form method="POST" action="/admin/update/hostel_image/{{ idx }}" enctype="multipart/form-data" style="margin-top: 0.5rem;" onsubmit="return confirmUpdate(event)">
+        <input type="file" name="image" required>
+        <button type="submit">Update</button>
+      </form>
+      <form method="POST" action="/admin/delete/hostel_image/{{ idx }}" onsubmit="return confirmDelete(event)">
+        <button type="submit" style="background: crimson; color: white; margin-top: 0.2rem;">Delete</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+
+  <hr>
+  <h3>Add New Image</h3>
+  <form method="POST" action="/admin/add/hostel_image" enctype="multipart/form-data" onsubmit="return confirmAdd(event)">
+    <input type="file" name="image" required>
+    <button type="submit">Add Image</button>
+  </form>
+</div>
+<!-- SweetAlert2 -->
+
+<script>
+function confirmDelete(e) {
+  e.preventDefault();
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to undo this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      e.target.submit();
+    }
+  });
+  return false; // optional, but keeps it consistent with most form handlers
+}
+
+
+  function confirmUpdate(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Confirm Update',
+      text: 'Do you want to update this image?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, update it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.target.submit();
+      }
+    });
+    return false;
+  }
+
+  function confirmAdd(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Add New Image?',
+      text: 'This will be added to the carousel',
+      icon: 'info',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, add it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        e.target.submit();
+      }
+    });
+    return false;
+  }
+</script>
+
+
+
+
+<!-- Map Section -->
+<div class="section-box" id="map_section">
+  <h2>Map Section</h2>
+  <form action="/admin/update/map_section" method="POST">
+    <label>Title</label>
+    <input type="text" name="title" value="{{ data.map_section.title }}">
+
+    <label>Iframe Embed Code</label>
+    <textarea name="iframe_src" rows="4">{{ data.map_section.iframe_src }}</textarea>
+
+    <button type="submit">Update Map Section</button>
+  </form>
+</div>
+
+<script>
+function addRuleField() {
+  const container = document.querySelector('#admission_section form > div');
+  const newField = document.createElement('div');
+  newField.style.display = 'flex';
+  newField.style.alignItems = 'center';
+  newField.style.gap = '1rem';
+  newField.innerHTML = `
+    <input type="text" name="rules" placeholder="New rule" style="flex: 1;">
+    <button type="button" onclick="this.parentElement.remove()" style="background: crimson; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 4px; cursor: pointer;">Delete</button>
+  `;
+  container.appendChild(newField);
+}
+</script>
+
+
+
+
+<!-- Layout Section -->
+<div class="section-box" id="layout">
+  <h2>Layout & Footer</h2>
+  <form action="/admin/update/layout" method="POST">
+    <h4>Social Links</h4>
+    <label>Facebook</label>
+    <input type="text" name="social_facebook" value="{{ data.layout.footer.social_links.facebook }}">
+
+    <label>Twitter</label>
+    <input type="text" name="social_twitter" value="{{ data.layout.footer.social_links.twitter }}">
+
+    <label>Instagram</label>
+    <input type="text" name="social_instagram" value="{{ data.layout.footer.social_links.instagram }}">
+
+    <h4>Contact Info</h4>
+    <label>Email</label>
+    <input type="email" name="contact_email" value="{{ data.layout.footer.contact_email }}"style="width: 300px;">
+
+    <label>Phone</label>
+    <input type="text" name="contact_phone" value="{{ data.layout.footer.contact_phone }}">
+
+    <label>Address</label>
+    <textarea name="contact_address" rows="2">{{ data.layout.footer.contact_address }}</textarea>
+
+    <h4>Copyright</h4>
+    <input type="text" name="copyright" value="{{ data.layout.footer.copyright }}">
+
+    <button type="submit">Update Layout & Footer</button>
+  </form>
+</div>
+
+
+  </div>
+</body>
+</html>

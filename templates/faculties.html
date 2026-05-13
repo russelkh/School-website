@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}Faculties - Competitive Success Academy{% endblock %}
+
+{% block content %}
+
+<!-- Faculties Section -->
+<section id="faculties" class="faculties-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title animate slide-up">Meet Our Faculties</h2>
+    </div>
+
+    <!-- Subject Filter Buttons -->
+    <div class="subject-filters" id="subjectFilters">
+      <button class="filter-btn active" data-subject="all">All</button>
+      <button class="filter-btn" data-subject="Mathematics">Mathematics</button>
+      <button class="filter-btn" data-subject="English">English</button>
+      <button class="filter-btn" data-subject="Manipuri">Manipuri</button>
+      <button class="filter-btn" data-subject="Physics">Physics</button>
+      <button class="filter-btn" data-subject="Chemistry">Chemistry</button>
+      <button class="filter-btn" data-subject="Biology">Biology</button>
+      <button class="filter-btn" data-subject="Zoology">Zoology</button>
+      <button class="filter-btn" data-subject="Human Ecology and Family Sciences">Home Science</button>
+    </div>
+
+    <div class="faculties-grid" id="facultiesGrid"></div>
+  </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('/api/faculties')
+        .then(response => response.json())
+        .then(data => {
+          const facultiesContainer = document.getElementById('facultiesGrid');
+
+          if (Array.isArray(data)) {
+            data.forEach((faculty, index) => {
+              const card = document.createElement('div');
+              card.className = 'faculty-card';
+              card.setAttribute('data-subject', faculty.subject);
+
+              card.innerHTML = `
+                <img src="${faculty.image}" alt="${faculty.name}">
+                <h3>${faculty.name}</h3>
+                <p class="subject">${faculty.subject}</p>
+                <p class="qualification">${faculty.qualification}</p>
+              `;
+
+              facultiesContainer.appendChild(card);
+
+              // Trigger animation with delay
+              setTimeout(() => {
+                card.classList.add('loaded');
+              }, index * 80);
+            });
+
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+              btn.addEventListener('click', function() {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const selectedSubject = this.dataset.subject;
+                const cards = facultiesContainer.querySelectorAll('.faculty-card');
+
+                let delayIndex = 0;
+                cards.forEach((card, index) => {
+                  const cardSubject = card.getAttribute('data-subject');
+
+                  if (selectedSubject === 'all' || cardSubject === selectedSubject) {
+                    card.style.display = 'block';
+                    // Reset and replay animation
+                    card.classList.remove('loaded');
+                    setTimeout(() => {
+                      card.classList.add('loaded');
+                    }, delayIndex * 50);
+                    delayIndex++;
+                  } else {
+                    card.style.display = 'none';
+                    card.classList.remove('loaded');
+                  }
+                });
+              });
+            });
+          } else {
+            facultiesContainer.innerHTML = '<p>No faculty data available.</p>';
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching faculty data:', error);
+          document.getElementById('facultiesGrid').innerHTML = '<p>Error loading data.</p>';
+        });
+    });
+    </script>
+
+{% endblock %}
