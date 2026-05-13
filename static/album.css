@@ -1,0 +1,150 @@
+/* ========================================== */
+/* ALBUM PAGE STYLES                          */
+/* ========================================== */
+
+.album-section {
+  padding: 120px 0 60px;
+  min-height: 100vh;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.album-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-5px);
+}
+
+.album-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.album-card:hover img {
+  transform: scale(1.05);
+}
+
+.album-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 30px 20px 20px;
+  color: var(--white);
+}
+
+.album-card-overlay h3 {
+  color: var(--white);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.album-card-overlay p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Album Modal */
+.album-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.album-modal.show {
+  display: flex;
+}
+
+.album-modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: var(--radius-md);
+}
+
+.album-modal .close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: var(--white);
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.album-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--white);
+  border: none;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.album-modal-nav:hover {
+  background: var(--primary-color);
+}
+
+.album-modal-nav.prev {
+  left: 20px;
+}
+
+.album-modal-nav.next {
+  right: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .album-section {
+    padding: 100px 0 40px;
+  }
+
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .album-card img {
+    height: 250px;
+  }
+
+  .album-modal-nav {
+    padding: 10px 15px;
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .album-card img {
+    height: 200px;
+  }
+}
