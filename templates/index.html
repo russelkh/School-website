@@ -134,16 +134,12 @@
       <button class="carousel-btn prev" id="prevBtn"><span>&#10094;</span></button>
 
       {% for year, data in subject_toppers.items() %}
-        <div class="carousel-items {% if loop.first %}active{% endif %}" data-year="{{ year }}">
-          {% if data.image %}
-            <div class="carousel-item" data-full-image="{{ data.image }}">
-              <img src="{{ data.image }}" alt="{{ data.title }}">
-            </div>
-          {% else %}
-            <div class="carousel-item no-image">
-              <span>{{ year }}</span>
-            </div>
-          {% endif %}
+        <div class="carousel-items {% if loop.first %}active{% endif %}" data-year="{{ year }}" data-full-image="{{ data.image }}">
+          <div class="carousel-item no-image">
+            <span class="year-number">{{ year }}</span>
+            <span class="subject-label">Subject Topper</span>
+            <span class="press-label">Press to view image</span>
+          </div>
         </div>
       {% endfor %}
 

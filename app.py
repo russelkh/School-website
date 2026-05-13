@@ -54,7 +54,7 @@ def inject_layout():
     return dict(layout=site_data.get('layout', {}))
 
 ADMIN_USERNAME = os.getenv('ADMIN_USERNAME', 'admin')
-ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'admin123')
+ADMIN_PASSWORD = os.getenv('ADMIN_PASSWORD', 'csa2026')
 
 @app.route('/')
 def index():

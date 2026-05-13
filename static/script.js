@@ -151,14 +151,11 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Modal functionality
-  const carouselItemsEls = document.querySelectorAll('.carousel-item:not(.no-image)');
-  const modal = document.getElementById('topper-modal');
-  const modalImg = document.getElementById('modal-img');
-  const closeBtn = modal?.querySelector('.close');
+  const carouselContainers = document.querySelectorAll('.carousel-items');
 
-  carouselItemsEls.forEach(item => {
-    item.addEventListener('click', () => {
-      const fullImage = item.dataset.fullImage;
+  carouselContainers.forEach(container => {
+    container.addEventListener('click', () => {
+      const fullImage = container.dataset.fullImage;
       if (fullImage && modalImg) {
         modalImg.src = fullImage;
         modal.classList.add('show');

@@ -199,7 +199,6 @@
 .about-image {
   flex: 1;
   position: relative;
-  border: 3px solid var(--primary-color);
   border-radius: var(--radius-lg);
   background: #fafafa;
   overflow: hidden;
@@ -225,9 +224,8 @@
   position: relative;
   height: 400px;
   overflow: hidden;
+  border: 3px solid var(--primary-color);
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
   width: 100%;
 }
@@ -383,7 +381,7 @@
 .topper-card {
   flex: 0 0 calc(20% - 20px);
   background-color: #fafafa;
-  border-radius: 8px;
+  border-radius: 10px;
   overflow: visible;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -604,15 +602,32 @@
 .carousel-item.no-image {
   background: linear-gradient(135deg, var(--primary-color), #8B0000);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 }
 
-.carousel-item.no-image span {
-  font-size: 3rem;
+.carousel-item.no-image .year-number {
+  font-size: 3.5rem;
   font-weight: 800;
   color: var(--white);
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  line-height: 1;
+}
+
+.carousel-item.no-image .subject-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.carousel-item.no-image .press-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 5px;
 }
 
 /* Carousel Navigation Buttons */
