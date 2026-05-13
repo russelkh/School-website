@@ -120,36 +120,33 @@
       <h2 class="section-title">Subject Toppers</h2>
     </div>
 
-    <!-- Carousel - iOS Wheel Picker Style -->
-    <div class="subject-toppers-carousel">
-      <div class="carousel-wrapper">
-        <button class="carousel-nav-btn prev-btn">‹</button>
-        <div class="carousel-container">
-          <div class="carousel-track">
-            {% for year, data in subject_toppers.items() %}
-              <div class="carousel-item" data-year="{{ year }}">
-                <div class="topper-preview" data-image="{{ data.image }}">
-                  {% if data.image %}
-                    <img src="{{ data.image }}" alt="{{ data.title }}">
-                  {% else %}
-                    <div class="no-image-placeholder">
-                      <span>{{ year }}</span>
-                    </div>
-                  {% endif %}
+    <!-- Subject Toppers -->
+    <div class="year-tabs">
+      {% for year, data in subject_toppers.items() %}
+        <button class="year-tab {% if loop.first %}active{% endif %}" data-year="{{ year }}">{{ year }}</button>
+      {% endfor %}
+    </div>
+
+    <div class="year-toppers-container">
+      {% for year, data in subject_toppers.items() %}
+        <div class="year-toppers {% if loop.first %}active{% endif %}" id="year-{{ year }}">
+          <div class="topper-item" data-image="{{ data.image }}">
+            <div class="topper-preview">
+              {% if data.image %}
+                <img src="{{ data.image }}" alt="{{ data.title }}">
+              {% else %}
+                <div class="no-image-placeholder">
+                  <span>{{ year }}</span>
                 </div>
-                <div class="topper-info">
-                  <h3>{{ data.title }}</h3>
-                  <p>{{ data.description }}</p>
-                </div>
-              </div>
-            {% endfor %}
+              {% endif %}
+            </div>
+            <div class="topper-info">
+              <h3>{{ data.title }}</h3>
+              <p>{{ data.description }}</p>
+            </div>
           </div>
         </div>
-        <button class="carousel-nav-btn next-btn">›</button>
-      </div>
-      <div class="carousel-hint">
-        <span>← Swipe or click buttons to browse →</span>
-      </div>
+      {% endfor %}
     </div>
 
     <!-- Modal Viewer -->

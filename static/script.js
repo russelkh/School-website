@@ -107,218 +107,57 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(nextImage, transitionTime);
   }
 
-  // === Subject Toppers - iOS Wheel Picker Style ===
-  document.addEventListener('DOMContentLoaded', function() {
-    const carouselContainer = document.querySelector('.carousel-container');
-    const carouselTrack = document.querySelector('.carousel-track');
-    const carouselItems = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.querySelector('.carousel-nav-btn.prev-btn');
-    const nextBtn = document.querySelector('.carousel-nav-btn.next-btn');
-    const modal = document.getElementById('topper-modal');
-    const modalImg = document.getElementById('modal-img');
-    const closeBtn = modal?.querySelector('.close');
+  // === Subject Toppers Year Tabs ===
+  const yearTabs = document.querySelectorAll('.year-tab');
+  const yearToppers = document.querySelectorAll('.year-toppers');
 
-    const itemWidth = 280;
-    let isDragging = false;
-    let startX = 0;
-    let scrollLeft = 0;
-    let currentScroll = 0;
-    let currentIndex = 0;
-    let momentumRequest = null;
+  yearTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const year = tab.dataset.year;
 
-    // Get current active index based on scroll position
-    function getActiveIndex() {
-      if (!carouselContainer) return 0;
-      const containerCenter = carouselContainer.scrollLeft + carouselContainer.offsetWidth / 2;
-      return Math.round((containerCenter - itemWidth / 2) / itemWidth);
-    }
+      yearTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
 
-    // Function to update item styles based on scroll position
-    function updateItemsStyle() {
-      if (!carouselContainer) return;
-      const containerCenter = carouselContainer.scrollLeft + carouselContainer.offsetWidth / 2;
-
-      carouselItems.forEach((item, index) => {
-        const itemCenter = index * itemWidth + itemWidth / 2;
-        const distance = Math.abs(containerCenter - itemCenter);
-        const threshold = itemWidth * 1.5;
-
-        item.classList.remove('active', 'near');
-
-        if (distance < itemWidth * 0.6) {
-          item.classList.add('active');
-          currentIndex = index;
-        } else if (distance < threshold) {
-          item.classList.add('near');
-        }
-      });
-    }
-
-    // Snap to nearest item
-    function snapToItem() {
-      if (!carouselContainer) return;
-      const containerCenter = carouselContainer.scrollLeft + carouselContainer.offsetWidth / 2;
-      const nearestIndex = Math.round((containerCenter - itemWidth / 2) / itemWidth);
-      const clampedIndex = Math.max(0, Math.min(nearestIndex, carouselItems.length - 1));
-      const targetScroll = clampedIndex * itemWidth + (carouselContainer.offsetWidth - itemWidth) / 2 - (carouselContainer.scrollWidth - carouselContainer.offsetWidth) / 2;
-
-      carouselContainer.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth'
-      });
-
-      updateItemsStyle();
-    }
-
-    // Scroll to specific item by index
-    function scrollToIndex(index) {
-      if (!carouselContainer || carouselItems.length === 0) return;
-      const clampedIndex = Math.max(0, Math.min(index, carouselItems.length - 1));
-      currentIndex = clampedIndex;
-
-      const targetScroll = clampedIndex * itemWidth + (carouselContainer.offsetWidth - itemWidth) / 2 - (carouselContainer.scrollWidth - carouselContainer.offsetWidth) / 2;
-
-      carouselContainer.scrollTo({
-        left: targetScroll,
-        behavior: 'smooth'
-      });
-
-      // Update classes manually for immediate feedback
-      carouselItems.forEach((item, idx) => {
-        item.classList.remove('active', 'near');
-        if (idx === clampedIndex) {
-          item.classList.add('active');
-        } else if (Math.abs(idx - clampedIndex) === 1) {
-          item.classList.add('near');
-        }
-      });
-    }
-
-    // Button navigation - direct index tracking
-    if (prevBtn) {
-      prevBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        currentIndex = Math.max(0, currentIndex - 1);
-        scrollToIndex(currentIndex);
-      });
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        currentIndex = Math.min(carouselItems.length - 1, currentIndex + 1);
-        scrollToIndex(currentIndex);
-      });
-    }
-
-  // Scroll event handlers
-  if (carouselContainer) {
-    carouselContainer.addEventListener('scroll', () => {
-      currentScroll = carouselContainer.scrollLeft;
-      updateItemsStyle();
-
-      // Clear any pending momentum
-      if (momentumRequest) {
-        cancelAnimationFrame(momentumRequest);
-      }
-
-      // Start momentum check
-      momentumRequest = requestAnimationFrame(() => {
-        const afterScroll = carouselContainer.scrollLeft;
-        if (Math.abs(afterScroll - currentScroll) < 1) {
-          snapToItem();
+      yearToppers.forEach(section => {
+        section.classList.remove('active');
+        if (section.id === `year-${year}`) {
+          section.classList.add('active');
         }
       });
     });
+  });
 
-    // Touch/mouse drag handling
-    carouselContainer.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      startX = e.pageX - carouselContainer.offsetLeft;
-      scrollLeft = carouselContainer.scrollLeft;
-      carouselContainer.style.cursor = 'grabbing';
-    });
+  // Modal functionality
+  const topperItems = document.querySelectorAll('.topper-item');
+  const modal = document.getElementById('topper-modal');
+  const modalImg = document.getElementById('modal-img');
+  const closeBtn = modal?.querySelector('.close');
 
-    carouselContainer.addEventListener('mouseleave', () => {
-      if (isDragging) {
-        isDragging = false;
-        carouselContainer.style.cursor = 'grab';
-        snapToItem();
+  topperItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const imgUrl = item.dataset.image || item.querySelector('.topper-preview img')?.src;
+      if (imgUrl && modalImg) {
+        modalImg.src = imgUrl;
+        if (modal) modal.style.display = 'flex';
       }
     });
+  });
 
-    carouselContainer.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        carouselContainer.style.cursor = 'grab';
-        snapToItem();
-      }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      if (modal) modal.style.display = 'none';
+      if (modalImg) modalImg.src = '';
     });
-
-    carouselContainer.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - carouselContainer.offsetLeft;
-      const walk = (startX - x) * 1.5;
-      carouselContainer.scrollLeft = scrollLeft + walk;
-    });
-
-    // Touch events for mobile
-    let touchStartX = 0;
-    let touchScrollLeft = 0;
-
-    carouselContainer.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].pageX - carouselContainer.offsetLeft;
-      touchScrollLeft = carouselContainer.scrollLeft;
-    }, { passive: true });
-
-    carouselContainer.addEventListener('touchmove', (e) => {
-      const x = e.touches[0].pageX - carouselContainer.offsetLeft;
-      const walk = (touchStartX - x) * 1.5;
-      carouselContainer.scrollLeft = touchScrollLeft + walk;
-    }, { passive: true });
-
-    carouselContainer.addEventListener('touchend', () => {
-      snapToItem();
-    }, { passive: true });
   }
 
-  // Click on carousel item to view full image in modal
-  carouselItems.forEach(item => {
-    const preview = item.querySelector('.topper-preview');
-    if (preview) {
-      preview.addEventListener('click', () => {
-        const imgUrl = preview.dataset.image || preview.querySelector('img')?.src;
-        if (imgUrl && modalImg) {
-          modalImg.src = imgUrl;
-          if (modal) modal.classList.add('show');
-        }
-      });
-    }
-  });
-
-  closeBtn?.addEventListener('click', () => {
-    if (modal) modal.classList.remove('show');
-    if (modalImg) modalImg.src = '';
-  });
-
-  modal?.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.remove('show');
-      if (modalImg) modalImg.src = '';
-    }
-  });
-
-  // Initialize
-  setTimeout(() => {
-    const centerIndex = Math.floor(carouselItems.length / 2);
-    const initialScroll = centerIndex * itemWidth - (carouselContainer.offsetWidth - itemWidth) / 2;
-    carouselContainer.scrollLeft = initialScroll;
-    updateItemsStyle();
-  }, 100);
-});
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        if (modalImg) modalImg.src = '';
+      }
+    });
+  }
 
 /* ========================================== */
 /* VIDEO PLAYER CONTROLS                     */
