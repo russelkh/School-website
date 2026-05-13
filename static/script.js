@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Observe all elements with animation classes
   const animateElements = document.querySelectorAll(
-    '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card'
+    '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card, .about-text, .about-image, .topper-card'
   );
 
   animateElements.forEach(element => {
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Also set a timeout to observe elements that might be added dynamically
   setTimeout(() => {
     const dynamicElements = document.querySelectorAll(
-      '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card'
+      '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card, .about-text, .about-image, .topper-card'
     );
     dynamicElements.forEach(element => {
       if (!element.classList.contains('show')) {
@@ -328,4 +328,4 @@ if (hero && bg) {
 
   updateParallax();
 }
-
+});

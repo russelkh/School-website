@@ -7,7 +7,8 @@
   /* Colors */
   --primary-color: #a51c30;
   --secondary-color: #222;
-  --light-color: #f8f8f8;
+  --light-color: #e8e8e8;
+  --soft-white: #f5f5f5;
   --dark-color: #333;
   --text-color: #444;
   --white: #ffffff;
@@ -76,7 +77,7 @@ body {
   font-family: var(--font-primary);
   color: var(--text-color);
   line-height: 1.6;
-  background-color: var(--white);
+  background-color: var(--soft-white);
 }
 
 /* Typography */
@@ -321,7 +322,7 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--white);
+  background-color: #f8f8f8;
   box-shadow: var(--shadow-md);
   z-index: var(--z-sticky);
   padding: 15px 0;

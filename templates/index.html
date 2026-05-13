@@ -33,12 +33,12 @@
       <h2 class="section-title animate slide-up">{{ about_section.title }}</h2>
     </div>
     <div class="about-content">
-      <div class="about-text slide-in-left">
+      <div class="about-text">
         {% for paragraph in about_section.paragraphs %}
           <p>{{ paragraph }}</p>
         {% endfor %}
       </div>
-      <div class="about-image slide-in-right">
+      <div class="about-image">
         <div class="about-image carousel">
           {% for image in about_section.carousel_images %}
             <img src="{{ image }}" class="carousel-img {% if loop.first %}active{% endif %}" alt="CSA Campus {{ loop.index }}">
