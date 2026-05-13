@@ -80,6 +80,9 @@ body {
   background-color: var(--soft-white);
 }
 
+/* Scroll snap for sections - removed for smoother scrolling */
+/* .snap-section removed */
+
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
@@ -261,23 +264,54 @@ button {
   display: inline-block;
   margin: 0;
   position: relative;
-  border-bottom: 3px solid var(--primary-color);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-decoration: none;
 }
 
-.section-title::before,
+/* Royal Underline Style */
 .section-title::after {
   content: '';
   position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 30px;
-  height: 3px;
-  background-color: var(--primary-color);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--primary-color) 20%,
+    var(--primary-color) 80%,
+    transparent 100%
+  );
+  border-radius: 2px;
+  transform: scaleY(1);
 }
 
-.section-title::after {
-  width: 80px;
+.section-title::before {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 3px;
+  background: var(--primary-color);
+  border-radius: 2px;
+  opacity: 0.6;
+}
+
+/* Royal decorative ends */
+.section-title {
+  background: linear-gradient(
+    to bottom,
+    transparent 70%,
+    rgba(165, 28, 48, 0.08) 70%,
+    rgba(165, 28, 48, 0.08) 85%,
+    transparent 85%,
+    transparent 95%,
+    rgba(165, 28, 48, 0.05) 95%
+  );
+  padding: 0 15px;
 }
 
 /* Modal */

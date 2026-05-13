@@ -91,26 +91,24 @@
     <div class="toppers-container">
       {% for topper in state_toppers %}
         <div class="topper-card animate-stagger">
-          <div class="rank-badge">
-            {% if topper.year %}{{ topper.year }}{% endif %} {{ topper.rank }}
+          <div class="card-header">
+            <div class="position-badge">
+              {% if topper.year %}{{ topper.year }}{% endif %} {{ topper.rank }}
+            </div>
           </div>
-          <img src="{{ topper.image }}" alt="Topper {{ loop.index }}">
-          <h3>{{ topper.name }}</h3>
-          <p>{{ topper.description }}</p>
-          {% if topper.exam_type and topper.achievement_text %}
-          {% if topper.banner_color %}
-          <div class="achievement-banner" style="background-color: {{ topper.banner_color }};">
-          {% elif "jee" in topper.exam_type|lower %}
-          <div class="achievement-banner jee-banner">
-          {% elif "neet" in topper.exam_type|lower %}
-          <div class="achievement-banner neet-banner">
-          {% else %}
-          <div class="achievement-banner">
-          {% endif %}
-            <span class="exam-type">{{ topper.exam_type }}</span>
-            <span class="achievement-text">{{ topper.achievement_text }}</span>
+          <div class="card-image">
+            <img src="{{ topper.image }}" alt="Topper {{ loop.index }}">
           </div>
-          {% endif %}
+          <div class="card-content">
+            <h3>{{ topper.name }}</h3>
+            <p>{{ topper.description }}</p>
+            {% if topper.exam_type and topper.achievement_text %}
+            <div class="exam-achievement-banner {% if 'jee' in topper.exam_type|lower %}jee-banner{% elif 'neet' in topper.exam_type|lower %}neet-banner{% endif %}">
+              <span class="exam-type">{{ topper.exam_type }}</span>
+              <span class="achievement-text">{{ topper.achievement_text }}</span>
+            </div>
+            {% endif %}
+          </div>
         </div>
       {% endfor %}
     </div>

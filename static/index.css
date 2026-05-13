@@ -201,8 +201,8 @@
   position: relative;
   border: 3px solid var(--primary-color);
   border-radius: var(--radius-lg);
-  padding: 5px;
-  background: var(--white);
+  background: #fafafa;
+  overflow: hidden;
   opacity: 0;
   transform: translateX(60px);
   transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -214,26 +214,18 @@
   transform: translateX(0);
 }
 
-.about-image {
-  flex: 1;
-  position: relative;
-  border: 3px solid var(--primary-color);
-  border-radius: var(--radius-lg);
-  padding: 5px;
-  background: #fafafa;
-}
-
 .about-image img {
-  width: 120%;
+  width: 100%;
   height: 400px;
   object-fit: cover;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  display: block;
 }
 
 .about-image.carousel {
   position: relative;
   height: 400px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-md);
@@ -391,16 +383,17 @@
 .topper-card {
   flex: 0 0 calc(20% - 20px);
   background-color: #fafafa;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
+  border-radius: 8px;
+  overflow: visible;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   position: relative;
-  transition: transform 0.3s ease 0.2s, box-shadow 0.3s ease 0.2s;
-  border: 2px solid var(--gray-200);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border: 2px solid #ddd;
+  display: flex;
+  flex-direction: column;
   /* Scroll-triggered staggered animation */
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .topper-card.show {
@@ -416,95 +409,126 @@
 .topper-card:nth-child(5) { transition-delay: 0.4s; }
 
 .topper-card:hover {
-  transform: translateY(-10px) perspective(1000px) rotateX(2deg);
-  box-shadow: var(--shadow-xl);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(165, 28, 48, 0.15);
+  border-color: var(--primary-color);
 }
 
-.topper-card img {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.topper-card:hover img {
-  transform: scale(1.05);
-}
-
-.topper-card h3 {
-  font-size: 1.2rem;
-  padding: 15px 15px 5px;
-  color: var(--secondary-color);
-}
-
-.topper-card p {
-  padding: 0 15px 15px;
-  color: var(--primary-color);
-  font-weight: 500;
-}
-
-.rank-badge {
+/* Position Badge - Top-Left Corner Ribbon Banner */
+.card-header {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: var(--primary-color);
-  color: var(--white);
-  padding: 6px 12px;
-  border-radius: var(--radius-sm);
-  font-weight: 600;
-  font-size: 0.85rem;
-  z-index: 4;
-  white-space: nowrap;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
 }
 
-.jee-badge {
+.position-badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 120px;
+  background: linear-gradient(135deg, var(--primary-color), #7a1515);
+  color: var(--white);
+  padding: 6px 0;
+  font-weight: 800;
+  font-size: 0.7rem;
+  text-align: center;
+  letter-spacing: 1px;
+  border: none;
+  box-shadow: none;
+  z-index: 10;
+}
+
+/* Bold borders */
+.position-badge::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  background-color: #ff9800;
-  color: var(--white);
-  padding: 6px 12px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-align: center;
-  z-index: 5;
-  white-space: nowrap;
+  bottom: 0;
+  border: 3px solid rgba(255, 255, 255, 0.4);
 }
 
-.jee-badge ~ .rank-badge {
-  top: 40px;
+/* Card Image */
+.card-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  z-index: 1;
 }
 
-.achievement-banner {
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.topper-card:hover .card-image img {
+  transform: scale(1.03);
+}
+
+/* Card Content - Aligned at bottom */
+.card-content {
+  padding: 14px;
+  flex: 1;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 0 0 6px 6px;
+}
+
+.card-content h3 {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+
+.card-content p {
+  color: var(--gray-500);
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin: 0 0 12px 0;
+}
+
+/* Exam Achievement Banner - Colored strip at bottom */
+.exam-achievement-banner {
+  display: flex;
   align-items: center;
-  padding: 8px 15px;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 14px;
   color: var(--white);
   font-weight: 600;
-  font-size: 0.85rem;
-  text-align: center;
+  font-size: 0.8rem;
+  border-radius: 0 0 6px 6px;
+  margin: 0 -14px -14px -14px;
 }
 
-.achievement-banner .exam-type {
-  font-size: 0.75rem;
+.exam-achievement-banner.jee-banner {
+  background: linear-gradient(135deg, #ff9800, #f77f00);
+}
+
+.exam-achievement-banner.neet-banner {
+  background: linear-gradient(135deg, #2a9d8f, #1d7870);
+}
+
+.exam-achievement-banner .exam-type {
+  font-size: 0.7rem;
   opacity: 0.9;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-.achievement-banner .achievement-text {
-  font-size: 1rem;
-}
-
-.achievement-banner.jee-banner {
-  background-color: #f77f00;
-}
-
-.achievement-banner.neet-banner {
-  background-color: #2a9d8f;
+.exam-achievement-banner .achievement-text {
+  font-weight: 700;
 }
 
 /* Subject Toppers Section */
@@ -878,16 +902,10 @@
 
   .topper-card h3 {
     font-size: 1rem;
-    padding: 12px 12px 4px;
   }
 
-  .jee-badge, .rank-badge {
-    font-size: 0.75rem;
-    padding: 4px 8px;
-  }
-
-  .jee-badge ~ .rank-badge {
-    top: 32px;
+  .card-header {
+    display: none;
   }
 
   .ad-container {
