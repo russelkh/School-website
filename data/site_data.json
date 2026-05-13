@@ -54,14 +54,16 @@
     {
       "name": "Yumnam Rohen",
       "rank": "8th Position",
+      "year": "2025",
       "image": "static/images/state--1.png",
       "exam_type": "JEE Mains",
       "achievement_text": "99 Percentile",
       "banner_color": ""
     },
     {
-      "name": "student 2",
+      "name": "Kh. Nixon",
       "rank": "17th Position",
+      "year": "2024",
       "image": "static/images/state-2.png",
       "exam_type": "",
       "achievement_text": "",
@@ -70,6 +72,7 @@
     {
       "name": "Maibam Puja Devi",
       "rank": "19th Position",
+      "year": "2025",
       "image": "static/images/state-3.png",
       "exam_type": "",
       "achievement_text": "",
@@ -78,14 +81,16 @@
     {
       "name": "Priyanka Devi",
       "rank": "4th Position",
+      "year": "2025",
       "image": "static/images/state4.png",
       "exam_type": "NEET",
       "achievement_text": "AIR 1",
       "banner_color": ""
     },
     {
-      "name": "student 4",
+      "name": "Laishram Jibankumar",
       "rank": "5th Position",
+      "year": "2024",
       "image": "static/images/state5.png",
       "exam_type": "",
       "achievement_text": "",
@@ -93,17 +98,20 @@
     }
   ],
   "subject_toppers": {
+    "2025": {
+      "title": "2025 Subject Toppers",
+      "image": "/static/images/2025_subject_toppers.jpeg",
+      "description": "Class X - 100% Results with 9 toppers in State Top 20"
+    },
     "2024": {
-      "title": "2024 subject toppers",
-      "image": ""
+      "title": "2024 Subject Toppers",
+      "image": "",
+      "description": "Class X - Outstanding performance with subject-wise toppers"
     },
     "2023": {
       "title": "2023 Subject Toppers",
-      "image": ""
-    },
-    "2025": {
-      "title": "2025 Subject toppers",
-      "image": "/static/images/2025_subject_toppers.jpeg"
+      "image": "",
+      "description": "Class X - Excellent results across all subjects"
     }
   },
   "ad_section": {

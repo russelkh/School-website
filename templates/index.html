@@ -87,7 +87,9 @@
     <div class="toppers-container">
       {% for topper in state_toppers %}
         <div class="topper-card animate-stagger">
-          <div class="rank-badge">{{ topper.rank }}</div>
+          <div class="rank-badge">
+            {% if topper.year %}{{ topper.year }}{% endif %} {{ topper.rank }}
+          </div>
           <img src="{{ topper.image }}" alt="Topper {{ loop.index }}">
           <h3>{{ topper.name }}</h3>
           <p>{{ topper.description }}</p>
@@ -115,25 +117,40 @@
 <section class="subject-toppers-section">
   <div class="container">
     <div class="section-header">
-      <h2 class="section-title"> Subject Toppers </h2>
+      <h2 class="section-title">Subject Toppers</h2>
     </div>
 
-    <!-- Year Tabs -->
-    <div class="year-tabs">
-      {% for year, data in subject_toppers.items() %}
-        <button class="year-tab {% if loop.first %}active{% endif %}" data-year="{{ year }}">{{ year }}</button>
-      {% endfor %}
-    </div>
-
-    <!-- Year-wise Display -->
-    {% for year, data in subject_toppers.items() %}
-      <div class="year-toppers {% if loop.first %}active{% endif %}" id="year-{{ year }}">
-        <div class="topper-year-card" data-image="{{ data.image }}">
-          <h3>{{ data.title }}</h3>
-          <p>Click to view full image</p>
+    <!-- Carousel - iOS Wheel Picker Style -->
+    <div class="subject-toppers-carousel">
+      <div class="carousel-wrapper">
+        <button class="carousel-nav-btn prev-btn">‹</button>
+        <div class="carousel-container">
+          <div class="carousel-track">
+            {% for year, data in subject_toppers.items() %}
+              <div class="carousel-item" data-year="{{ year }}">
+                <div class="topper-preview" data-image="{{ data.image }}">
+                  {% if data.image %}
+                    <img src="{{ data.image }}" alt="{{ data.title }}">
+                  {% else %}
+                    <div class="no-image-placeholder">
+                      <span>{{ year }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+                <div class="topper-info">
+                  <h3>{{ data.title }}</h3>
+                  <p>{{ data.description }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
         </div>
+        <button class="carousel-nav-btn next-btn">›</button>
       </div>
-    {% endfor %}
+      <div class="carousel-hint">
+        <span>← Swipe or click buttons to browse →</span>
+      </div>
+    </div>
 
     <!-- Modal Viewer -->
     <div id="topper-modal" class="modal">
