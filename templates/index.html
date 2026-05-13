@@ -122,39 +122,38 @@
       <h2 class="section-title">Subject Toppers</h2>
     </div>
 
-    <!-- Subject Toppers -->
+    <!-- Year Tabs -->
     <div class="year-tabs">
       {% for year, data in subject_toppers.items() %}
         <button class="year-tab {% if loop.first %}active{% endif %}" data-year="{{ year }}">{{ year }}</button>
       {% endfor %}
     </div>
 
-    <div class="year-toppers-container">
+    <!-- Carousel -->
+    <div class="subject-carousel">
+      <button class="carousel-btn prev" id="prevBtn"><span>&#10094;</span></button>
+
       {% for year, data in subject_toppers.items() %}
-        <div class="year-toppers {% if loop.first %}active{% endif %}" id="year-{{ year }}">
-          <div class="topper-item" data-image="{{ data.image }}">
-            <div class="topper-preview">
-              {% if data.image %}
-                <img src="{{ data.image }}" alt="{{ data.title }}">
-              {% else %}
-                <div class="no-image-placeholder">
-                  <span>{{ year }}</span>
-                </div>
-              {% endif %}
+        <div class="carousel-items {% if loop.first %}active{% endif %}" data-year="{{ year }}">
+          {% if data.image %}
+            <div class="carousel-item" data-full-image="{{ data.image }}">
+              <img src="{{ data.image }}" alt="{{ data.title }}">
             </div>
-            <div class="topper-info">
-              <h3>{{ data.title }}</h3>
-              <p>{{ data.description }}</p>
+          {% else %}
+            <div class="carousel-item no-image">
+              <span>{{ year }}</span>
             </div>
-          </div>
+          {% endif %}
         </div>
       {% endfor %}
+
+      <button class="carousel-btn next" id="nextBtn"><span>&#10095;</span></button>
     </div>
 
-    <!-- Modal Viewer -->
-    <div id="topper-modal" class="modal">
+    <!-- Modal for Full View -->
+    <div id="topper-modal">
       <span class="close">&times;</span>
-      <img id="modal-img" src="" alt="Full Subject Toppers View">
+      <img id="modal-img" src="" alt="Full View">
     </div>
   </div>
 </section>

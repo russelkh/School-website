@@ -107,57 +107,81 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(nextImage, transitionTime);
   }
 
-  // === Subject Toppers Year Tabs ===
+  // === Subject Toppers Carousel ===
   const yearTabs = document.querySelectorAll('.year-tab');
-  const yearToppers = document.querySelectorAll('.year-toppers');
+  const carouselItems = document.querySelectorAll('.carousel-items');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
 
+  let currentYearIndex = 0;
+
+  // Tab switching
   yearTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const year = tab.dataset.year;
+      const targetIndex = Array.from(yearTabs).indexOf(tab);
 
       yearTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
 
-      yearToppers.forEach(section => {
-        section.classList.remove('active');
-        if (section.id === `year-${year}`) {
-          section.classList.add('active');
+      carouselItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.dataset.year === year) {
+          item.classList.add('active');
         }
       });
+
+      currentYearIndex = targetIndex;
     });
   });
 
+  // Prev/Next buttons
+  if (prevBtn && nextBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentYearIndex > 0) {
+        yearTabs[currentYearIndex - 1].click();
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentYearIndex < yearTabs.length - 1) {
+        yearTabs[currentYearIndex + 1].click();
+      }
+    });
+  }
+
   // Modal functionality
-  const topperItems = document.querySelectorAll('.topper-item');
+  const carouselItemsEls = document.querySelectorAll('.carousel-item:not(.no-image)');
   const modal = document.getElementById('topper-modal');
   const modalImg = document.getElementById('modal-img');
   const closeBtn = modal?.querySelector('.close');
 
-  topperItems.forEach(item => {
+  carouselItemsEls.forEach(item => {
     item.addEventListener('click', () => {
-      const imgUrl = item.dataset.image || item.querySelector('.topper-preview img')?.src;
-      if (imgUrl && modalImg) {
-        modalImg.src = imgUrl;
-        if (modal) modal.style.display = 'flex';
+      const fullImage = item.dataset.fullImage;
+      if (fullImage && modalImg) {
+        modalImg.src = fullImage;
+        modal.classList.add('show');
       }
     });
   });
 
   if (closeBtn) {
     closeBtn.addEventListener('click', () => {
-      if (modal) modal.style.display = 'none';
-      if (modalImg) modalImg.src = '';
+      modal.classList.remove('show');
+      modalImg.src = '';
     });
   }
 
   if (modal) {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) {
-        modal.style.display = 'none';
-        if (modalImg) modalImg.src = '';
+        modal.classList.remove('show');
+        modalImg.src = '';
       }
     });
   }
+});
 
 /* ========================================== */
 /* VIDEO PLAYER CONTROLS                     */
@@ -303,29 +327,30 @@ document.addEventListener("DOMContentLoaded", function () {
 /* HERO PARALLAX EFFECT                       */
 /* ========================================== */
 
-const hero = document.querySelector('.hero');
-const bg = document.querySelector('.hero-background');
+document.addEventListener('DOMContentLoaded', () => {
+  const hero = document.querySelector('.hero');
+  const bg = document.querySelector('.hero-background');
 
-if (hero && bg) {
-  let ticking = false;
+  if (hero && bg) {
+    let ticking = false;
 
-  const updateParallax = () => {
-    const scrolled = window.pageYOffset;
-    if (scrolled <= hero.offsetHeight) {
-      const speed = 0.1;
-      const translateY = scrolled * speed;
-      bg.style.transform = `translateY(${translateY}px)`;
-    }
-    ticking = false;
-  };
+    const updateParallax = () => {
+      const scrolled = window.pageYOffset;
+      if (scrolled <= hero.offsetHeight) {
+        const speed = 0.1;
+        const translateY = scrolled * speed;
+        bg.style.transform = `translateY(${translateY}px)`;
+      }
+      ticking = false;
+    };
 
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(updateParallax);
-      ticking = true;
-    }
-  });
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    });
 
-  updateParallax();
-}
+    updateParallax();
+  }
 });

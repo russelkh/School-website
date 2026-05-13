@@ -427,7 +427,7 @@
 
 .position-badge {
   position: absolute;
-  top: -10px;
+  top: -15px;
   left: -10px;
   width: 120px;
   background: linear-gradient(135deg, var(--primary-color), #7a1515);
@@ -541,7 +541,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .year-tab {
@@ -561,68 +561,157 @@
   color: var(--white);
 }
 
-.year-toppers-container {
-  margin-top: 30px;
+/* Subject Carousel */
+.subject-carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 60px;
 }
 
-.year-toppers {
+.carousel-items {
   display: none;
   justify-content: center;
 }
 
-.year-toppers.active {
+.carousel-items.active {
   display: flex;
 }
 
-.topper-item {
-  flex: 0 0 200px;
-  text-align: center;
+.carousel-item {
+  width: 350px;
+  height: 200px;
   cursor: pointer;
-}
-
-.topper-item .topper-preview {
-  width: 100%;
-  height: 150px;
-  border-radius: var(--radius-lg);
+  border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
   border: 3px solid var(--primary-color);
 }
 
-.topper-item .topper-preview img {
+.carousel-item img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
 }
 
-.topper-item .no-image-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--primary-color), #c0392b);
+.carousel-item:hover img {
+  transform: scale(1.02);
+}
+
+/* Year placeholder when no image */
+.carousel-item.no-image {
+  background: linear-gradient(135deg, var(--primary-color), #8B0000);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.topper-item .no-image-placeholder span {
-  font-size: 2rem;
-  font-weight: 700;
+.carousel-item.no-image span {
+  font-size: 3rem;
+  font-weight: 800;
   color: var(--white);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.topper-item .topper-info {
-  margin-top: 10px;
+/* Carousel Navigation Buttons */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: var(--primary-color);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 
-.topper-item .topper-info h3 {
-  font-size: 1rem;
-  color: var(--secondary-color);
-  margin-bottom: 5px;
+.carousel-btn:hover {
+  background: #8a1525;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 15px rgba(165, 28, 48, 0.4);
 }
 
-.topper-item .topper-info p {
-  font-size: 0.8rem;
-  color: var(--gray-500);
+.carousel-btn.prev {
+  left: 0;
+}
+
+.carousel-btn.next {
+  right: 0;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Button press animation */
+.carousel-btn:active {
+  transform: translateY(-50%) scale(0.9);
+}
+
+/* Slide effect on button icon */
+.carousel-btn span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.carousel-btn.prev:hover span {
+  transform: translateX(-3px);
+}
+
+.carousel-btn.next:hover span {
+  transform: translateX(3px);
+}
+
+/* Topper Modal */
+#topper-modal {
+  display: none;
+  position: fixed;
+  z-index: var(--z-modal);
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  align-items: center;
+  justify-content: center;
+}
+
+#topper-modal.show {
+  display: flex;
+}
+
+#topper-modal .close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #f1f1f1;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 100;
+}
+
+#topper-modal .close:hover {
+  color: var(--primary-color);
+}
+
+#modal-img {
+  max-width: 90%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
 }
 
 /* Ad/Updates Section */
