@@ -796,23 +796,23 @@ def send_email():
 
         subject = f"New Admission Form Submission - {full_name}"
         body = f"""
-📄 New Admission Application Received:
+ New Admission Application Received:
 
-👤 Full Name: {full_name}
-🎂 Date of Birth: {dob}
-🆔 Aadhaar: {aadhaar}
-♂️ Gender: {gender}
+ Full Name: {full_name}
+ Date of Birth: {dob}
+ Aadhaar: {aadhaar}
+ Gender: {gender}
 
-👪 Guardian Name: {guardian_name}
-📞 Guardian Phone: {guardian_phone}
-📧 Guardian Email: {guardian_email}
+Guardian Name: {guardian_name}
+Guardian Phone: {guardian_phone}
+Guardian Email: {guardian_email}
 
-🏫 Previous School: {school_name}
-📸 Photo: {'Attached' if photo_file else 'Not Uploaded'}
-📁 Marksheet: {'Attached' if marksheet_file else 'Not Uploaded'}
+Previous School: {school_name}
+Photo: {'Attached' if photo_file else 'Not Uploaded'}
+Marksheet: {'Attached' if marksheet_file else 'Not Uploaded'}
         """
 
-        msg = Message(subject, recipients=['yumnamjaichandra1243@gmail.com'])
+        msg = Message(subject, recipients=['rsl.khomdram@gmail.com'])
         msg.body = body
 
         if photo_file:
@@ -837,16 +837,16 @@ def send_hostel_email():
 
         subject = f"🏠 Hostel Application - {full_name}"
         body = f"""
-📬 Hostel Application Received:
+ Hostel Application Received:
 
-👤 Full Name: {full_name}
-🎂 Date of Birth: {dob}
-📱 Mobile: {mobile}
-♂️ Gender: {gender}
-🎓 Class Applied: {class_applied}
+ Full Name: {full_name}
+ Date of Birth: {dob}
+ Mobile: {mobile}
+ Gender: {gender}
+ Class Applied: {class_applied}
         """
 
-        msg = Message(subject, recipients=['yumnamjaichandra1243@gmail.com'])
+        msg = Message(subject, recipients=['rsl.khomdram@gmail.com'])
         msg.body = body
         mail.send(msg)
         return render_template('thankyou.html')

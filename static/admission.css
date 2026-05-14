@@ -5,8 +5,8 @@
 /* Hero Section */
 .admission-hero {
   position: relative;
-  height: 35vh;
-  min-height: 200px;
+  height: 25vh;
+  min-height: 150px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 80%;
   z-index: -1;
   background: linear-gradient(135deg, var(--primary-color) 0%, #7a1525 100%);
 }
@@ -31,14 +31,14 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  height: 12%;
   background: linear-gradient(to top, var(--soft-white), transparent);
 }
 
 .admission-hero .hero-content {
   position: relative;
   z-index: 1;
-  color: var(--white);
+  color: transparent;
   padding: 0 20px;
 }
 
@@ -46,36 +46,51 @@
   font-family: var(--font-heading);
   font-size: 2.5rem;
   margin-bottom: 8px;
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: none;
+  color: transparent;
+  opacity: 0;
 }
 
 .admission-hero .hero-subtitle {
   font-size: 1.1rem;
-  opacity: 0.9;
+  opacity: 0;
+  color: transparent;
 }
 
 .admission-hero .hero-divider {
   width: 60px;
   height: 3px;
-  background: linear-gradient(to right, transparent, var(--white), transparent);
+  background: transparent;
   margin: 10px auto 0;
 }
 
 /* Admission Section */
 .admission-section {
-  padding: 40px 0;
+  padding: 0px 0;
   background: var(--soft-white);
+}
+
+.rules-container {
+  max-width: 90%;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.rules-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  margin: 0 0 10px 0;
 }
 
 .admission-content {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: stretch;
-  gap: 30px;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
+  gap: 25px;
+  padding: 0 15px;
   width: 100%;
 }
 
@@ -85,10 +100,13 @@
   background: var(--white);
   border-radius: var(--radius-xl);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  padding: 30px;
+  padding: 20px;
   position: relative;
   overflow: hidden;
-  min-height: 300px;
+  min-height: 400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .rules-card::before {
@@ -101,26 +119,35 @@
   background: linear-gradient(to right, var(--primary-color), #7a1525, var(--primary-color));
 }
 
+.rules-header {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start;
+  height: calc(100% - 20px);
+}
+
 .rules-icon {
-  width: 55px;
-  height: 55px;
+  flex: 0 0 60px;
+  width: 60px;
+  height: 60px;
   background: linear-gradient(135deg, var(--primary-color), #7a1525);
   border-radius: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
   box-shadow: 0 5px 15px rgba(165, 28, 48, 0.3);
 }
 
 .rules-icon i {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: var(--white);
 }
 
 .rules-list {
-  max-height: 280px;
+  flex: 1;
+  height: 340px;
   overflow-y: auto;
+  padding: 5px 0;
 }
 
 .rule-item {
@@ -586,15 +613,27 @@
 
   .admission-content {
     justify-content: center;
-    gap: 25px;
+    gap: 15px;
+    padding: 0 10px;
   }
 
   .rules-card {
-    max-width: none;
+    min-height: 350px;
+    padding: 15px;
+  }
+
+  .rules-list {
+    height: 280px;
   }
 
   .rules-cta {
-    padding: 30px 25px;
+    padding: 20px 15px;
+    flex: 0 0 180px;
+  }
+
+  .rules-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
 }
 
@@ -604,8 +643,8 @@
 
 @media (max-width: 768px) {
   .admission-hero {
-    height: 28vh;
-    min-height: 180px;
+    height: 20vh;
+    min-height: 120px;
     margin-top: -45px;
   }
 
@@ -622,13 +661,13 @@
   }
 
   .admission-section {
-    padding: 25px 0;
+    padding: 15px 0;
   }
 
   .admission-content {
     flex-direction: column;
-    gap: 15px;
-    padding: 0 15px;
+    gap: 12px;
+    padding: 0;
   }
 
   .rules-card,
@@ -638,14 +677,20 @@
   }
 
   .rules-card {
-    padding: 20px 15px;
+    padding: 12px;
     border-radius: var(--radius-lg);
+    min-height: auto;
+  }
+
+  .rules-header {
+    gap: 10px;
   }
 
   .rules-icon {
+    flex: 0 0 45px;
     width: 45px;
     height: 45px;
-    margin-bottom: 15px;
+    border-radius: 10px;
   }
 
   .rules-icon i {
@@ -653,35 +698,51 @@
   }
 
   .rules-list {
-    max-height: 200px;
+    height: 200px;
   }
 
   .rule-item {
-    padding: 6px 0;
+    padding: 5px 0;
+    gap: 8px;
   }
 
   .rule-item span {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .rule-item i {
+    font-size: 0.8rem;
+    margin-top: 2px;
+    min-width: 14px;
   }
 
   .rules-cta {
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 20px 15px;
-    gap: 12px;
+    padding: 15px 12px;
+    gap: 10px;
+    margin: 0;
   }
 
   .rules-cta .btn {
     flex: 1;
-    min-width: 140px;
+    min-width: 120px;
+    padding: 12px 15px;
+    font-size: 0.85rem;
+  }
+
+  .btn-lg {
+    padding: 12px 15px;
+    font-size: 0.85rem;
   }
 
   .hostel-section {
-    padding: 30px 0;
+    padding: 25px 0;
   }
 
   .hostel-content {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
 
   .media-slide {
@@ -689,37 +750,38 @@
   }
 
   .media-arrow {
-    width: 38px;
-    height: 38px;
-    font-size: 1rem;
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
   }
 
   .media-badge {
-    font-size: 0.7rem;
-    padding: 6px 12px;
+    font-size: 0.65rem;
+    padding: 5px 10px;
   }
 
   .features-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: 10px;
   }
 
   .feature-card {
-    padding: 15px 10px;
+    padding: 12px 8px;
   }
 
   .feature-icon {
-    width: 45px;
-    height: 45px;
-    margin-bottom: 10px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+    border-radius: 10px;
   }
 
   .feature-icon i {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   .feature-card p {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .modal-content {
@@ -764,7 +826,8 @@
 
   .rules-card {
     padding: 15px 12px;
-    margin: 0 10px;
+    margin: 0;
+    min-height: 300px;
   }
 
   .rules-icon {
@@ -782,7 +845,7 @@
 
   .rules-cta {
     padding: 15px 12px;
-    margin: 10px;
+    margin: 0;
   }
 
   .media-badge {

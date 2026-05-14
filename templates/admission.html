@@ -20,19 +20,22 @@
 
 <!-- Admission Section -->
 <section class="admission-section">
-  <div class="container">
+  <div class="container rules-container">
+    <h2 class="rules-title">Admission Rules</h2>
     <div class="admission-content">
       <div class="rules-card">
-        <div class="rules-icon">
-          <i class="fas fa-clipboard-list"></i>
-        </div>
-        <div class="rules-list">
-          {% for rule in admission_section["rules"] %}
-          <div class="rule-item">
-            <i class="fas fa-check-circle"></i>
-            <span>{{ rule }}</span>
+        <div class="rules-header">
+          <div class="rules-icon">
+            <i class="fas fa-clipboard-list"></i>
           </div>
-          {% endfor %}
+          <div class="rules-list">
+            {% for rule in admission_section["rules"][:10] %}
+            <div class="rule-item">
+              <i class="fas fa-check-circle"></i>
+              <span>{{ rule }}</span>
+            </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
       <div class="rules-cta">
@@ -83,11 +86,6 @@
             <p>{{ feature.text }}</p>
           </div>
           {% endfor %}
-          <div class="feature-card cta-card">
-            <button class="btn btn-primary" onclick="showHostelForm()">
-              <i class="fas fa-home"></i> Apply for Hostel
-            </button>
-          </div>
         </div>
       </div>
     </div>

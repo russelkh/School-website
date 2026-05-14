@@ -43,14 +43,14 @@ please change it to functional school email
 receiver_email = "school@example.com"
 
 app.config['MAIL_USERNAME'] = 'sender email'
-app.config['MAIL_PASSWORD'] = 'password from app'
+app.config['MAIL_PASSWORD'] = 'password from app' { google apps password }
 app.config['MAIL_DEFAULT_SENDER'] = 'sender mail again'
 
 .
 
 👨‍💻 Author
-Refined and developed by russelkh
-GitHub: github.com/russelkh/competitive-success-academy
+Refined and developed by Russel Khomdram
+GitHub: github.com/russelkh/School-website
 
 
 
