@@ -21,10 +21,10 @@
   <!-- Header -->
   <header class="header">
     <div class="header-container">
-      <div class="logo-container">
+      <a href="{{ url_for('index') }}" class="logo-link">
         <img src="{{ layout.logo_url }}" alt="CSA Logo" class="logo" />
         <h1 class="school-name">{{ layout.site_name }}</h1>
-      </div>
+      </a>
       <nav class="nav-menu">
         <ul>
           {% for link in layout.nav_links %}

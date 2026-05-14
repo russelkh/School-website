@@ -1,15 +1,27 @@
 /* ========================================== */
 /* SCROLL-TRIGGERED ANIMATIONS                */
-/* Intersection Observer for performance      */
+/* Optimized for performance                   */
 /* ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Intersection Observer for scroll animations
-  const observerOptions = {
-    threshold: 0.15,
-    rootMargin: '0px 0px -100px 0px'
-  };
+  // Throttle function for performance
+  function throttle(func, limit) {
+    let inThrottle;
+    return function(...args) {
+      if (!inThrottle) {
+        func.apply(this, args);
+        inThrottle = true;
+        setTimeout(() => inThrottle = false, limit);
+      }
+    };
+  }
 
+  // Batch DOM queries
+  const animatedElements = document.querySelectorAll(
+    '.animate, .animate-stagger, .about-text, .about-image, .topper-card, .section-title'
+  );
+
+  // Use single observer for all elements
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -17,28 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
-  // Observe all elements with animation classes
-  const animateElements = document.querySelectorAll(
-    '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card, .about-text, .about-image, .topper-card'
-  );
-
-  animateElements.forEach(element => {
-    observer.observe(element);
-  });
-
-  // Also set a timeout to observe elements that might be added dynamically
-  setTimeout(() => {
-    const dynamicElements = document.querySelectorAll(
-      '.animate, .slide-left, .slide-right, .slide-up, .slide-in-left, .slide-in-right, .zoom-in, .fade-in, .animate-stagger, .faculty-card, .about-text, .about-image, .topper-card'
-    );
-    dynamicElements.forEach(element => {
-      if (!element.classList.contains('show')) {
-        observer.observe(element);
-      }
-    });
-  }, 1000);
+  animatedElements.forEach(el => observer.observe(el));
 });
 
 /* ========================================== */
@@ -301,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ========================================== */
-/* HERO PARALLAX EFFECT                       */
+/* HERO PARALLAX EFFECT - Optimized           */
 /* ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -310,24 +303,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (hero && bg) {
     let ticking = false;
+    let lastScrollY = 0;
 
     const updateParallax = () => {
-      const scrolled = window.pageYOffset;
+      const scrolled = window.scrollY;
       if (scrolled <= hero.offsetHeight) {
-        const speed = 0.1;
-        const translateY = scrolled * speed;
-        bg.style.transform = `translateY(${translateY}px)`;
+        bg.style.transform = `translateY(${scrolled * 0.3}px)`;
       }
       ticking = false;
     };
 
+    // Use passive event listener for better scroll performance
     window.addEventListener('scroll', () => {
+      lastScrollY = window.scrollY;
       if (!ticking) {
         window.requestAnimationFrame(updateParallax);
         ticking = true;
       }
-    });
-
-    updateParallax();
+    }, { passive: true });
   }
 });

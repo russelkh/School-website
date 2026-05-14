@@ -16,7 +16,7 @@
 }
 
 .hero-background {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,10 +24,11 @@
   background-size: cover;
   background-position: center;
   z-index: -2;
+  will-change: transform;
 }
 
 .hero-mask {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -51,8 +52,9 @@
   align-items: center;
   width: 100%;
   max-width: 800px;
-  padding: 0 20px;
+  padding: 80px 20px 20px;
   min-height: 110vh;
+  margin-top: -150px;
 }
 
 /* Hero Content Fade-in Animation on Load */
@@ -121,7 +123,7 @@
 
 .btn-album {
   position: absolute;
-  top: 50px;
+  top: 20px;
   right: 30px;
   z-index: 250;
   background-color: transparent;
@@ -179,8 +181,6 @@
 /* About Section - Scroll Animation */
 .about-text {
   flex: 1;
-  max-height: 400px;
-  overflow-y: auto;
   padding-right: var(--spacing-md);
   opacity: 0;
   transform: translateX(-60px);
@@ -196,6 +196,7 @@
   margin-bottom: var(--spacing-md);
 }
 
+/* About image animation */
 .about-image {
   flex: 1;
   position: relative;
@@ -902,18 +903,48 @@
 @media (max-width: 992px) {
   .about-content {
     flex-direction: column;
+    align-items: center;
   }
 
   .about-text {
+    width: 100%;
     max-height: none;
     padding-right: 0;
     margin-bottom: 30px;
+  }
+
+  .about-image {
+    width: 100%;
+  }
+
+  .about-image.carousel {
+    width: 90%;
+    height: 300px;
+    margin: 0 auto;
+  }
+
+  .about-image img {
+    height: 300px;
+  }
+
+  .toppers-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+
+  .topper-card {
+    flex: 1 1 auto;
+  }
+
+  .topper-card .card-image {
+    height: 180px;
   }
 }
 
 @media (max-width: 768px) {
   .btn-album {
-    top: 70px !important;
+    top: 40px !important;
     right: auto !important;
     left: 20px !important;
     padding: 8px 16px;

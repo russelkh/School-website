@@ -337,28 +337,23 @@
   "hostel_features": [
     {
       "id": "F-1",
-      "icon": "fas fa-bed",
-      "text": "Spacious AC Rooms"
-    },
-    {
-      "id": "F-2",
       "icon": "fas fa-utensils",
       "text": "Nutritious Meals"
     },
     {
-      "id": "F-3",
+      "id": "F-2",
       "icon": "fas fa-shield-alt",
       "text": "24/7 Security"
     },
     {
-      "id": "F-4",
+      "id": "F-3",
       "icon": "fas fa-book-reader",
-      "text": "Evening Study Hours"
+      "text": "Study Hours"
     },
     {
-      "id": "F-5",
-      "icon": "fas fa-wifi",
-      "text": "WiFi & Digital Learning"
+      "id": "F-4",
+      "icon": "fas fa-laptop",
+      "text": "Digital Learning"
     }
   ]
 }
