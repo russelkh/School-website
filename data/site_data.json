@@ -10,7 +10,7 @@
     "title": "About CSA",
     "paragraphs": [
       "Competitive Success Academy is a premier educational institution dedicated to nurturing young minds and preparing them for the challenges of tomorrow. Founded in 2019, our academy has consistently ranked among the top schools in the region.",
-      "The School’s mission is to provide a learning environment that encourages children to bring out the best in themselves an enable their all-round development through the joy of learning, enduring values and the celebration of diversity.",
+      "The School\u2019s mission is to provide a learning environment that encourages children to bring out the best in themselves an enable their all-round development through the joy of learning, enduring values and the celebration of diversity.",
       "At CSA, We recognize the imperative of important and educational experience that is world class in every respect and which prepares children for Global citizenship, a school that celebrates the culture of excellence and is an embodiment of values. We believe that a curriculum of excellence with a global dimension is control to the education of children to face the challenges of the 21st century with confidence and strength of character.",
       " we don't just teach subjects - we teach students how to learn, adapt, and thrive in an ever-changing world. Our unique curriculum blends traditional values with innovative teaching methodologies."
     ],
@@ -27,7 +27,7 @@
         "name": "Ch. Mohendra Singh",
         "role": "Founder & Chairperson, Competitive Success Academy",
         "popup_title": "Ch. Mohendra Singh",
-        "popup_text": "The core purpose of education is to provide children with a learning environment which brings out the best in them. We believe that every child is endowed with a unique setoff attributes and abilities, which need to be nurtured so that they blossom.\r\n\r\n At Competitive Success Academy, we provide a learning environment that inspires and motivates children, and encourages them to explore limitless possibilities in their quest for knowledge. \r\n\r\nOur caring and committed teachers are our pillars of strength. They teach our children not just with their minds but with their hearts. They make learning enjoyable and rewarding, and imbibe in children the importance of sound values. Our excellent educational programs are complemented by state-of-the art facilities and reasons and our focus on sports and co-curricular opportunities facilities children’s holistic education.\r\n\r\n I warmly invite you to explore Competitive Success Academy as we re-dedicate ourselves everyday, to impart the very best education to young minds.\r\n",
+        "popup_text": "The core purpose of education is to provide children with a learning environment which brings out the best in them. We believe that every child is endowed with a unique setoff attributes and abilities, which need to be nurtured so that they blossom.\r\n\r\n At Competitive Success Academy, we provide a learning environment that inspires and motivates children, and encourages them to explore limitless possibilities in their quest for knowledge. \r\n\r\nOur caring and committed teachers are our pillars of strength. They teach our children not just with their minds but with their hearts. They make learning enjoyable and rewarding, and imbibe in children the importance of sound values. Our excellent educational programs are complemented by state-of-the art facilities and reasons and our focus on sports and co-curricular opportunities facilities children\u2019s holistic education.\r\n\r\n I warmly invite you to explore Competitive Success Academy as we re-dedicate ourselves everyday, to impart the very best education to young minds.\r\n",
         "side": "left",
         "image": "static/images/head.jpeg"
       },
@@ -54,47 +54,52 @@
     {
       "name": "Yumnam Rohen",
       "rank": "8th Position",
-      "year": "2025",
       "image": "static/images/state--1.png",
-      "exam_type": "JEE Mains",
+      "description": "",
+      "exam_type": "JEE",
       "achievement_text": "99 Percentile",
-      "banner_color": ""
+      "banner_color": "",
+      "year": "2025"
     },
     {
       "name": "Kh. Nixon",
       "rank": "17th Position",
-      "year": "2024",
       "image": "static/images/state-2.png",
+      "description": "",
       "exam_type": "",
       "achievement_text": "",
-      "banner_color": ""
+      "banner_color": "",
+      "year": "2024"
     },
     {
       "name": "Maibam Puja Devi",
       "rank": "19th Position",
-      "year": "2025",
       "image": "static/images/state-3.png",
+      "description": "",
       "exam_type": "",
       "achievement_text": "",
-      "banner_color": ""
+      "banner_color": "",
+      "year": "2025"
     },
     {
       "name": "Priyanka Devi",
       "rank": "4th Position",
-      "year": "2025",
       "image": "static/images/state4.png",
+      "description": "",
       "exam_type": "NEET",
       "achievement_text": "AIR 1",
-      "banner_color": ""
+      "banner_color": "",
+      "year": "2025"
     },
     {
       "name": "Laishram Jibankumar",
       "rank": "5th Position",
-      "year": "2024",
       "image": "static/images/state5.png",
+      "description": "",
       "exam_type": "",
       "achievement_text": "",
-      "banner_color": ""
+      "banner_color": "",
+      "year": "2024"
     }
   ],
   "subject_toppers": {
@@ -171,7 +176,7 @@
       "contact_email": "competitivesuccessacademy13@gmail.com",
       "contact_phone": "+918837334882 / 6009201713 / 7005745945 / 60033834324 / 8787449445 / 7005583022",
       "contact_address": "Uripok Khoisnam Leikai, Kangchup Road, Imphal West, Manipur\r\n",
-      "copyright": "© 2025 Competitive Success Academy. All Rights Reserved."
+      "copyright": "\u00a9 2025 Competitive Success Academy. All Rights Reserved."
     }
   },
   "faculties_section": [

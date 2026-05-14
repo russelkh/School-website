@@ -254,6 +254,11 @@ def update_state_toppers():
         name = request.form.get(name_key, "").strip()
         rank_raw = request.form.get(rank_key, "").strip()
         existing_image = request.form.get(image_key, "")
+        description = request.form.get(f"description_{index}", "").strip()
+        exam_type = request.form.get(f"exam_type_{index}", "").strip()
+        achievement_text = request.form.get(f"achievement_text_{index}", "").strip()
+        banner_color = request.form.get(f"banner_color_{index}", "").strip()
+        year = request.form.get(f"year_{index}", "").strip()
 
         # Convert to ordinal rank
         try:
@@ -275,7 +280,12 @@ def update_state_toppers():
         updated.append({
             "name": name,
             "rank": rank,
-            "image": image_url
+            "image": image_url,
+            "description": description,
+            "exam_type": exam_type,
+            "achievement_text": achievement_text,
+            "banner_color": banner_color,
+            "year": year
         })
         index += 1
 
@@ -291,6 +301,11 @@ def add_state_topper():
 
     name = request.form.get("new_name", "").strip()
     rank_input = request.form.get("new_rank", "").strip()
+    description = request.form.get("new_description", "").strip()
+    exam_type = request.form.get("new_exam_type", "").strip()
+    achievement_text = request.form.get("new_achievement_text", "").strip()
+    banner_color = request.form.get("new_banner_color", "").strip()
+    year = request.form.get("new_year", "").strip()
     image_url = ""
 
     # Convert rank input to ordinal
@@ -310,7 +325,12 @@ def add_state_topper():
     new_topper = {
         "name": name,
         "rank": rank,
-        "image": image_url
+        "image": image_url,
+        "description": description,
+        "exam_type": exam_type,
+        "achievement_text": achievement_text,
+        "banner_color": banner_color,
+        "year": year
     }
 
     data.setdefault("state_toppers", []).append(new_topper)

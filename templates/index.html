@@ -102,10 +102,10 @@
           <div class="card-content">
             <h3>{{ topper.name }}</h3>
             <p>{{ topper.description }}</p>
-            {% if topper.exam_type and topper.achievement_text %}
-            <div class="exam-achievement-banner {% if 'jee' in topper.exam_type|lower %}jee-banner{% elif 'neet' in topper.exam_type|lower %}neet-banner{% endif %}">
-              <span class="exam-type">{{ topper.exam_type }}</span>
-              <span class="achievement-text">{{ topper.achievement_text }}</span>
+            {% if topper.exam_type or topper.achievement_text %}
+            <div class="exam-achievement-banner {% if topper.banner_color == 'orange' %}jee-banner{% elif topper.banner_color == 'green' %}neet-banner{% elif topper.banner_color == 'blue' %}other-banner{% elif topper.exam_type and 'neet' in topper.exam_type|lower %}neet-banner{% elif topper.exam_type and 'jee' in topper.exam_type|lower %}jee-banner{% endif %}">
+              {% if topper.exam_type %}<span class="exam-type">{{ topper.exam_type }}</span>{% endif %}
+              {% if topper.achievement_text %}<span class="achievement-text">{{ topper.achievement_text }}</span>{% endif %}
             </div>
             {% endif %}
           </div>

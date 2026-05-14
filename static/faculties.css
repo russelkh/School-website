@@ -3,14 +3,14 @@
 /* ========================================== */
 
 .faculties-section {
-  padding: 100px 0 80px;
+  padding: 20px 0 80px;
   min-height: 100vh;
 }
 
 .faculties-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
+  gap: 25px;
   margin-top: 40px;
 }
 
@@ -18,12 +18,12 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 7px;
   margin-bottom: 30px;
 }
 
 .filter-btn {
-  padding: 8px 20px;
+  padding: 8px 10px;
   border: 2px solid var(--primary-color);
   background: transparent;
   color: var(--primary-color);

@@ -260,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const isRight = card.classList.contains("right");
     const popup = document.getElementById(isLeft ? "popup-left" : (isRight ? "popup-right" : null));
 
-    // Desktop Hover
+    // Desktop and Tablet Hover (breakpoint > 768px)
     if (!isMiddle && popup && window.innerWidth > 768) {
       popup.style.transition = "transform 0.3s ease, opacity 0.3s ease";
       popup.style.position = "fixed";
@@ -296,28 +296,8 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Mobile Click
-    if (window.innerWidth <= 768) {
-      image.addEventListener("click", e => {
-        e.stopPropagation();
-        document.querySelectorAll(".tooltip-popup.active, .head-popup.active").forEach(el => {
-          el.classList.remove("active");
-        });
-
-        if (tooltip) tooltip.classList.toggle("active");
-        if (popup) popup.classList.toggle("active");
-      });
-    }
+    // Mobile view - no interactive popup
   });
-
-  // Close mobile popups on outside click
-  if (window.innerWidth <= 768) {
-    document.addEventListener("click", () => {
-      document.querySelectorAll(".tooltip-popup.active, .head-popup.active").forEach(el => {
-        el.classList.remove("active");
-      });
-    });
-  }
 });
 
 /* ========================================== */

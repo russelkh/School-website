@@ -133,6 +133,71 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'ArrowLeft') prevImage();
     if (e.key === 'Escape') closeLightbox();
   });
+
+  // Tinder Swipe Effect for Mobile
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isDragging = false;
+  let dragStartTime = 0;
+
+  const lightboxContent = document.querySelector('.lightbox-content');
+
+  lightbox.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    isDragging = true;
+    dragStartTime = Date.now();
+    if (lightboxImg) {
+      lightboxImg.style.transition = 'none';
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    touchCurrentX = e.touches[0].clientX;
+    const diffX = touchCurrentX - touchStartX;
+    if (lightboxImg) {
+      lightboxImg.style.transform = `translateX(${diffX}px) rotate(${diffX * 0.05}deg)`;
+      lightboxImg.style.opacity = 1 - Math.abs(diffX) / 500;
+    }
+  }, { passive: true });
+
+  lightbox.addEventListener('touchend', () => {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const diffX = touchCurrentX - touchStartX;
+    const swipeTime = Date.now() - dragStartTime;
+    const swipeVelocity = Math.abs(diffX) / swipeTime;
+    const threshold = 50;
+
+    if (lightboxImg) {
+      lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+
+      if (diffX > threshold || (diffX > 20 && swipeVelocity > 0.5)) {
+        // Swipe right - go to next image
+        lightboxImg.style.transform = 'translateX(100%) rotate(20deg)';
+        lightboxImg.style.opacity = '0';
+        setTimeout(() => {
+          nextImage();
+          lightboxImg.style.transform = '';
+          lightboxImg.style.opacity = '';
+        }, 300);
+      } else if (diffX < -threshold || (diffX < -20 && swipeVelocity > 0.5)) {
+        // Swipe left - go to previous image
+        lightboxImg.style.transform = 'translateX(-100%) rotate(-20deg)';
+        lightboxImg.style.opacity = '0';
+        setTimeout(() => {
+          prevImage();
+          lightboxImg.style.transform = '';
+          lightboxImg.style.opacity = '';
+        }, 300);
+      } else {
+        // Return to center
+        lightboxImg.style.transform = '';
+        lightboxImg.style.opacity = '';
+      }
+    }
+  });
 });
 </script>
 

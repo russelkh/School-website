@@ -379,7 +379,7 @@
   <form id="updateStateToppersForm" action="/admin/update/state_toppers" method="POST" enctype="multipart/form-data" onsubmit="return confirmStateToppersUpdate(event)">
     <div class="state-toppers-scroll" style="display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 1rem;">
       {% for s in data.state_toppers %}
-      <div class="topper-card" style="flex: 0 0 260px; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; position: relative; background: #fff;">
+      <div class="topper-card" style="flex: 0 0 280px; border: 1px solid #ccc; border-radius: 8px; padding: 1rem; position: relative; background: #fff;">
 
         <!-- Delete Button -->
         <button type="button" class="delete-topper-btn" data-index="{{ loop.index0 }}" style="position: absolute; top: 10px; right: 10px; background: crimson; color: white; border: none; padding: 0.4rem 0.6rem; border-radius: 4px; cursor: pointer;">✕</button>
@@ -395,6 +395,32 @@
 
         <label>Name</label>
         <input type="text" name="name_{{ loop.index0 }}" value="{{ s.name }}" required>
+
+        <label>Description</label>
+        <input type="text" name="description_{{ loop.index0 }}" value="{{ s.description }}" placeholder="e.g., 95.6% in CBSE">
+
+        <label>Exam Type</label>
+        <select name="exam_type_{{ loop.index0 }}">
+          <option value="">None</option>
+          <option value="JEE" {% if s.exam_type == 'JEE' %}selected{% endif %}>JEE</option>
+          <option value="NEET" {% if s.exam_type == 'NEET' %}selected{% endif %}>NEET</option>
+          <option value="JEE Advanced" {% if s.exam_type == 'JEE Advanced' %}selected{% endif %}>JEE Advanced</option>
+          <option value="Other" {% if s.exam_type == 'Other' %}selected{% endif %}>Other</option>
+        </select>
+
+        <label>Achievement Text</label>
+        <input type="text" name="achievement_text_{{ loop.index0 }}" value="{{ s.achievement_text }}" placeholder="e.g., AIR 1">
+
+        <label>Banner Color</label>
+        <select name="banner_color_{{ loop.index0 }}">
+          <option value="">Default</option>
+          <option value="orange" {% if s.banner_color == 'orange' %}selected{% endif %}>Orange (JEE)</option>
+          <option value="green" {% if s.banner_color == 'green' %}selected{% endif %}>Green (NEET)</option>
+          <option value="blue" {% if s.banner_color == 'blue' %}selected{% endif %}>Blue (Other)</option>
+        </select>
+
+        <label>Year</label>
+        <input type="text" name="year_{{ loop.index0 }}" value="{{ s.year | default('') }}" placeholder="e.g., 2024">
 
         <label>Change Image</label>
         <input type="file" name="image_file_{{ loop.index0 }}">
@@ -424,6 +450,27 @@
       <input type="number" name="new_rank" required min="1" style="width: 60px;">
       <span>Position</span>
     </div>
+    <label>Description</label>
+    <input type="text" name="new_description" placeholder="e.g., 95.6% in CBSE">
+    <label>Exam Type</label>
+    <select name="new_exam_type">
+      <option value="">None</option>
+      <option value="JEE">JEE</option>
+      <option value="NEET">NEET</option>
+      <option value="JEE Advanced">JEE Advanced</option>
+      <option value="Other">Other</option>
+    </select>
+    <label>Achievement Text</label>
+    <input type="text" name="new_achievement_text" placeholder="e.g., AIR 1">
+    <label>Banner Color</label>
+    <select name="new_banner_color">
+      <option value="">Default</option>
+      <option value="orange">Orange (JEE)</option>
+      <option value="green">Green (NEET)</option>
+      <option value="blue">Blue (Other)</option>
+    </select>
+    <label>Year</label>
+    <input type="text" name="new_year" placeholder="e.g., 2024">
     <label>Image</label>
     <input type="file" name="new_image" required>
     <button type="submit" style="margin-top: 0.5rem;">Add State Topper</button>

@@ -121,9 +121,9 @@
 
 .btn-album {
   position: absolute;
-  top: 100px;
+  top: 50px;
   right: 30px;
-  z-index: 5;
+  z-index: 250;
   background-color: transparent;
   color: var(--white);
   border: 2px solid var(--white);
@@ -516,6 +516,10 @@
 
 .exam-achievement-banner.neet-banner {
   background: linear-gradient(135deg, #2a9d8f, #1d7870);
+}
+
+.exam-achievement-banner.other-banner {
+  background: linear-gradient(135deg, #6c5ce7, #5b4bc4);
 }
 
 .exam-achievement-banner .exam-type {
@@ -914,7 +918,7 @@
     left: 20px !important;
     padding: 8px 16px;
     font-size: 14px;
-    z-index: 5;
+    z-index: 250 !important;
   }
 
   .hero-title {
@@ -923,6 +927,10 @@
 
   .hero-subtitle {
     font-size: 1rem;
+  }
+
+  .hero-content {
+    padding-top: 20px;
   }
 
   .about-content {
@@ -996,6 +1004,7 @@
   .topper-card {
     flex: 1 1 auto;
     width: 100%;
+    overflow: visible;
   }
 
   .topper-card img {
@@ -1008,8 +1017,34 @@
     font-size: 1rem;
   }
 
+  .exam-achievement-banner {
+    padding: 8px 10px;
+    font-size: 0.7rem;
+  }
+
+  .exam-achievement-banner .exam-type {
+    font-size: 0.6rem;
+  }
+
+  .exam-achievement-banner .achievement-text {
+    font-size: 0.75rem;
+  }
+
+  .position-badge {
+    top: -12px;
+    left: -8px;
+    width: 90px;
+    font-size: 0.6rem;
+    padding: 4px 0;
+  }
+
   .card-header {
-    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
   }
 
   .ad-container {

@@ -78,6 +78,7 @@ body {
   color: var(--text-color);
   line-height: 1.6;
   background-color: var(--soft-white);
+  padding-top: 60px;
 }
 
 /* Scroll snap for sections - removed for smoother scrolling */
@@ -321,8 +322,8 @@ button {
   width: 100%;
   background-color: #f8f8f8;
   box-shadow: var(--shadow-md);
-  z-index: var(--z-sticky);
-  padding: 15px 0;
+  z-index: 500;
+  padding: 10px 0;
 }
 
 .header-container {
@@ -330,22 +331,26 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-md);
+  min-height: 50px;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .logo {
-  height: 50px;
-  margin-right: 15px;
+  height: 40px;
+  margin-right: 0;
+  width: auto;
 }
 
 .school-name {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--primary-color);
   margin: 0;
+  white-space: nowrap;
 }
 
 .nav-menu ul {
@@ -395,6 +400,15 @@ button {
   cursor: pointer;
   margin-left: 15px;
   padding: 10px;
+  z-index: 400;
+  position: relative;
+  background: transparent;
+  border: none;
+  color: var(--dark-color);
+}
+
+.mobile-menu-btn:active {
+  transform: scale(0.95);
 }
 
 /* ========================================== */
@@ -481,16 +495,35 @@ button {
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding: 5px 0;
+  }
+
+  .header-container {
+    min-height: 40px;
+  }
+
+  .logo {
+    height: 30px;
+  }
+
+  .school-name {
+    font-size: 0.8rem;
+  }
+
   .nav-menu ul {
     display: none;
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 40px;
     left: 0;
     width: 100%;
     background: var(--white);
     flex-direction: column;
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-md);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    z-index: 450;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
   }
 
   .nav-menu ul.active {
@@ -498,11 +531,21 @@ button {
   }
 
   .nav-menu li {
-    margin: 10px 0;
+    margin: 15px 0;
+  }
+
+  .nav-menu a {
+    font-size: 1.1rem;
+    padding: 10px 0;
+    display: block;
+    border-bottom: 1px solid #eee;
   }
 
   .mobile-menu-btn {
     display: block;
+    z-index: 550;
+    font-size: 1.2rem;
+    padding: 5px 8px;
   }
 
   .footer-content {
@@ -512,6 +555,10 @@ button {
 
   .section-title {
     font-size: 1.25rem;
+  }
+
+  body {
+    padding-top: 45px;
   }
 }
 
