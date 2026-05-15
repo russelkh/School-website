@@ -7,7 +7,7 @@
     "admission_link": "/admission"
   },
   "about_section": {
-    "title": "About CSA",
+    "title": "About Us",
     "paragraphs": [
       "Competitive Success Academy is a premier educational institution dedicated to nurturing young minds and preparing them for the challenges of tomorrow. Founded in 2019, our academy has consistently ranked among the top schools in the region.",
       "The School\u2019s mission is to provide a learning environment that encourages children to bring out the best in themselves an enable their all-round development through the joy of learning, enduring values and the celebration of diversity.",
@@ -43,7 +43,7 @@
         "name": "DR. K . Nabachandra Sharma",
         "role": "",
         "popup_title": "DR. K . NABACHANDRA SHARMA",
-        "popup_text": "First of all, I congratulate the students who have passed the Class X Board Examination...",
+        "popup_text": "First of all, I congratulate the students who have passed the Class X Board Examination (BSEM, CBSE & other boards) of 2021 and have chosen the Competitive Success Academy to study in Class XI.\r\n\r\nDuring such hard times toiling whilst the pandemic, it is understandably hard for the students community to keep in time with academic atmosphere. Nevertheless it becomes indispensable to carry forward with academic curriculum through any possible means like electronic learning, online class and assessments.\r\n\r\nI hope and wish that the school has undertaken tremendous efforts to serve the interests for the students and teachers in such time.\r\n\r\nI wish the school the very best in all the future events and projects. Lastly but not least I urge upon to maintain proper, safe and necessary healthy measures as education in not possible without health.",
         "side": "right",
         "image": "static/images/head3.png"
       }
@@ -332,7 +332,8 @@
     ]
   },
   "hostel_carousel_images": [
-    "static/images/hostel3.webp"
+    "/static/images/minimal_wallpaper.jpeg",
+    "/static/images/1.jpeg"
   ],
   "hostel_features": [
     {

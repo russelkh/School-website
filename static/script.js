@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateParallax = () => {
       const scrolled = window.scrollY;
       if (scrolled <= hero.offsetHeight) {
-        bg.style.transform = `translateY(${scrolled * 0.3}px)`;
+        bg.style.transform = `translateY(${scrolled * 0.4}px)`;
       }
       ticking = false;
     };

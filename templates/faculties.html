@@ -25,12 +25,32 @@
       <button class="filter-btn" data-subject="Chemistry">Chemistry</button>
       <button class="filter-btn" data-subject="Biology">Biology</button>
       <button class="filter-btn" data-subject="Zoology">Zoology</button>
+      <button class="filter-btn" data-subject="Computer Science">Computer Science</button>
       <button class="filter-btn" data-subject="Home Science">Home Science</button>
     </div>
 
     <div class="faculties-grid" id="facultiesGrid"></div>
   </div>
 </section>
+
+<!-- Faculty Preview Modal -->
+<div id="facultyModal" class="faculty-modal">
+  <button class="faculty-nav-btn faculty-prev" onclick="navigateFaculty(-1)" aria-label="Previous">&#10094;</button>
+  <div class="faculty-modal-content">
+    <div class="faculty-modal-image" id="facultyModalImage">
+      <img src="" alt="Faculty Image">
+    </div>
+    <div class="faculty-modal-info">
+      <h2 id="facultyModalName"></h2>
+      <p class="subject-label">Subject</p>
+      <p class="subject" id="facultyModalSubject"></p>
+      <p class="qualification-label">Qualification</p>
+      <p class="qualification" id="facultyModalQualification"></p>
+      <p class="faculty-counter" id="facultyCounter"></p>
+    </div>
+  </div>
+  <button class="faculty-nav-btn faculty-next" onclick="navigateFaculty(1)" aria-label="Next">&#10095;</button>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -61,20 +81,23 @@
             });
 
             // Filter functionality
+            let currentFilter = 'all';
+            window.allFacultyData = data;
+
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(btn => {
               btn.addEventListener('click', function() {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
 
-                const selectedSubject = this.dataset.subject;
+                currentFilter = this.dataset.subject;
                 const cards = facultiesContainer.querySelectorAll('.faculty-card');
 
                 let delayIndex = 0;
                 cards.forEach((card, index) => {
                   const cardSubject = card.getAttribute('data-subject');
 
-                  if (selectedSubject === 'all' || cardSubject === selectedSubject) {
+                  if (currentFilter === 'all' || cardSubject === currentFilter) {
                     card.style.display = 'block';
                     // Reset and replay animation
                     card.classList.remove('loaded');
@@ -89,6 +112,18 @@
                 });
               });
             });
+
+            // Faculty card click for modal
+            facultiesContainer.addEventListener('click', (e) => {
+              const card = e.target.closest('.faculty-card');
+              if (card) {
+                const name = card.querySelector('h3').textContent;
+                const fullData = data.find(f => f.name === name);
+                if (fullData) {
+                  showFacultyModal(fullData, currentFilter);
+                }
+              }
+            });
           } else {
             facultiesContainer.innerHTML = '<p>No faculty data available.</p>';
           }
@@ -97,6 +132,179 @@
           console.error('Error fetching faculty data:', error);
           document.getElementById('facultiesGrid').innerHTML = '<p>Error loading data.</p>';
         });
+    });
+
+    function showFacultyModal(faculty, filter) {
+      const modal = document.getElementById('facultyModal');
+      const modalImgEl = modal.querySelector('#facultyModalImage img');
+      const modalName = document.getElementById('facultyModalName');
+      const modalSubject = document.getElementById('facultyModalSubject');
+      const modalQualification = document.getElementById('facultyModalQualification');
+      const modalCounter = document.getElementById('facultyCounter');
+
+      // Get filtered list based on current filter
+      window.currentFacultyList = window.allFacultyData.filter(f =>
+        filter === 'all' || f.subject === filter
+      );
+      window.currentFacultyIndex = window.currentFacultyList.findIndex(f => f.id === faculty.id);
+
+      // Reset to initial state - remove slide-in and set initial positions
+      modalImgEl.classList.remove('slide-in');
+      modalName.classList.remove('slide-in');
+      modalSubject.classList.remove('slide-in');
+      modalQualification.classList.remove('slide-in');
+
+      // Set initial positions (image from left, text from right)
+      modalImgEl.style.transition = 'none';
+      modalImgEl.style.transform = 'translateX(-60px)';
+      modalImgEl.style.opacity = '0';
+
+      modalName.style.transition = 'none';
+      modalName.style.transform = 'translateX(60px)';
+      modalName.style.opacity = '0';
+
+      modalSubject.style.transition = 'none';
+      modalSubject.style.transform = 'translateX(60px)';
+      modalSubject.style.opacity = '0';
+
+      modalQualification.style.transition = 'none';
+      modalQualification.style.transform = 'translateX(60px)';
+      modalQualification.style.opacity = '0';
+
+      // Set content
+      modalImgEl.src = faculty.image;
+      modalName.textContent = faculty.name;
+      modalSubject.textContent = faculty.subject;
+      modalQualification.textContent = faculty.qualification;
+      modalCounter.textContent = `${window.currentFacultyIndex + 1} of ${window.currentFacultyList.length}`;
+
+      // Show modal
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+
+      // Force reflow
+      void modal.offsetWidth;
+
+      // Animate slide in
+      modalImgEl.style.transition = 'all 0.3s ease-out';
+      modalImgEl.style.transform = 'translateX(0)';
+      modalImgEl.style.opacity = '1';
+
+      modalName.style.transition = 'all 0.3s ease-out';
+      modalName.style.transform = 'translateX(0)';
+      modalName.style.opacity = '1';
+
+      modalSubject.style.transition = 'all 0.3s ease-out';
+      modalSubject.style.transform = 'translateX(0)';
+      modalSubject.style.opacity = '1';
+
+      modalQualification.style.transition = 'all 0.3s ease-out';
+      modalQualification.style.transform = 'translateX(0)';
+      modalQualification.style.opacity = '1';
+    }
+
+    function navigateFaculty(direction) {
+      if (!window.currentFacultyList || window.currentFacultyList.length === 0) return;
+
+      window.currentFacultyIndex += direction;
+
+      // Loop within filtered list
+      if (window.currentFacultyIndex >= window.currentFacultyList.length) {
+        window.currentFacultyIndex = 0;
+      } else if (window.currentFacultyIndex < 0) {
+        window.currentFacultyIndex = window.currentFacultyList.length - 1;
+      }
+
+      const nextFaculty = window.currentFacultyList[window.currentFacultyIndex];
+
+      // Get elements
+      const modal = document.getElementById('facultyModal');
+      const modalImgEl = modal.querySelector('#facultyModalImage img');
+      const modalName = document.getElementById('facultyModalName');
+      const modalSubject = document.getElementById('facultyModalSubject');
+      const modalQualification = document.getElementById('facultyModalQualification');
+      const modalCounter = document.getElementById('facultyCounter');
+
+      // Direction-based slide (next = from left, prev = from right)
+      const imgSlide = direction > 0 ? '-60px' : '60px';
+
+      // Set initial positions
+      modalImgEl.style.transition = 'none';
+      modalImgEl.style.transform = `translateX(${imgSlide})`;
+      modalImgEl.style.opacity = '0';
+
+      modalName.style.transition = 'none';
+      modalName.style.transform = 'translateX(60px)';
+      modalName.style.opacity = '0';
+
+      modalSubject.style.transition = 'none';
+      modalSubject.style.transform = 'translateX(60px)';
+      modalSubject.style.opacity = '0';
+
+      modalQualification.style.transition = 'none';
+      modalQualification.style.transform = 'translateX(60px)';
+      modalQualification.style.opacity = '0';
+
+      // Update content
+      modalImgEl.src = nextFaculty.image;
+      modalName.textContent = nextFaculty.name;
+      modalSubject.textContent = nextFaculty.subject;
+      modalQualification.textContent = nextFaculty.qualification;
+      modalCounter.textContent = `${window.currentFacultyIndex + 1} of ${window.currentFacultyList.length}`;
+
+      // Force reflow
+      void modalImgEl.offsetWidth;
+
+      // Animate slide in
+      modalImgEl.style.transition = 'all 0.3s ease-out';
+      modalImgEl.style.transform = 'translateX(0)';
+      modalImgEl.style.opacity = '1';
+
+      modalName.style.transition = 'all 0.3s ease-out';
+      modalName.style.transform = 'translateX(0)';
+      modalName.style.opacity = '1';
+
+      modalSubject.style.transition = 'all 0.3s ease-out';
+      modalSubject.style.transform = 'translateX(0)';
+      modalSubject.style.opacity = '1';
+
+      modalQualification.style.transition = 'all 0.3s ease-out';
+      modalQualification.style.transform = 'translateX(0)';
+      modalQualification.style.opacity = '1';
+    }
+
+    function closeFacultyModal() {
+      const modal = document.getElementById('facultyModal');
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+      window.currentFacultyList = [];
+      window.currentFacultyIndex = 0;
+    }
+
+    // Close modal on outside click
+    document.getElementById('facultyModal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('faculty-modal')) {
+        closeFacultyModal();
+      }
+    });
+
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('facultyModal');
+      if (!modal.classList.contains('show')) return;
+
+      if (e.key === 'Escape') {
+        closeFacultyModal();
+      } else if (e.key === 'ArrowRight') {
+        navigateFaculty(1);
+      } else if (e.key === 'ArrowLeft') {
+        navigateFaculty(-1);
+      }
+    });
+
+    // Add tabindex to make buttons keyboard accessible
+    document.querySelectorAll('.faculty-nav-btn').forEach(btn => {
+      btn.setAttribute('tabindex', '0');
     });
     </script>
 

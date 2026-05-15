@@ -249,6 +249,35 @@
   right: 30px;
 }
 
+/* Hide navigation buttons on mobile, show on tablet+ */
+@media (max-width: 768px) {
+  .lightbox-nav {
+    display: none;
+  }
+}
+
+/* Swipe hint for mobile */
+.swipe-hint {
+  display: none;
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 20px;
+  white-space: nowrap;
+  animation: fadeInUp 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .swipe-hint {
+    display: block;
+  }
+}
+
 /* Close Button */
 .lightbox-close {
   position: absolute;

@@ -30,6 +30,7 @@
     <p id="lightboxCaption" class="lightbox-caption"></p>
   </div>
   <div class="lightbox-counter" id="lightboxCounter"></div>
+  <div class="swipe-hint"><i class="fas fa-hand-point-left"></i> Swipe to navigate <i class="fas fa-hand-point-right"></i></div>
 </div>
 
 <script>
@@ -118,10 +119,59 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLightbox();
   }
 
+  // Check if mobile view
+  const isMobile = () => window.innerWidth <= 768;
+
   // Event listeners
   closeBtn.addEventListener('click', closeLightbox);
-  nextBtn.addEventListener('click', nextImage);
-  prevBtn.addEventListener('click', prevImage);
+
+  nextBtn.addEventListener('click', () => {
+    if (isMobile()) {
+      // Swipe right animation for mobile
+      lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+      lightboxImg.style.transform = 'translateX(100%) rotate(15deg)';
+      lightboxImg.style.opacity = '0';
+      setTimeout(() => {
+        nextImage();
+        lightboxImg.style.transition = 'none';
+        lightboxImg.style.transform = 'translateX(-100%) rotate(-15deg)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            lightboxImg.style.transform = 'translateX(0) rotate(0deg)';
+            lightboxImg.style.opacity = '1';
+          });
+        });
+      }, 300);
+    } else {
+      // Desktop - simple transition
+      nextImage();
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    if (isMobile()) {
+      // Swipe left animation for mobile
+      lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+      lightboxImg.style.transform = 'translateX(-100%) rotate(-15deg)';
+      lightboxImg.style.opacity = '0';
+      setTimeout(() => {
+        prevImage();
+        lightboxImg.style.transition = 'none';
+        lightboxImg.style.transform = 'translateX(100%) rotate(15deg)';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+            lightboxImg.style.transform = 'translateX(0) rotate(0deg)';
+            lightboxImg.style.opacity = '1';
+          });
+        });
+      }, 300);
+    } else {
+      // Desktop - simple transition
+      prevImage();
+    }
+  });
 
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
@@ -163,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   lightbox.addEventListener('touchend', () => {
     if (!isDragging) return;
+    if (!isMobile()) return; // Skip on desktop
     isDragging = false;
 
     const diffX = touchCurrentX - touchStartX;
@@ -172,24 +223,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (lightboxImg) {
       lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
-
       if (diffX > threshold || (diffX > 20 && swipeVelocity > 0.5)) {
-        // Swipe right - go to next image
-        lightboxImg.style.transform = 'translateX(100%) rotate(20deg)';
+        // Swipe right - go to next
+        lightboxImg.style.transform = 'translateX(100%) rotate(15deg)';
         lightboxImg.style.opacity = '0';
         setTimeout(() => {
           nextImage();
-          lightboxImg.style.transform = '';
-          lightboxImg.style.opacity = '';
+          lightboxImg.style.transition = 'none';
+          lightboxImg.style.transform = 'translateX(-100%) rotate(-15deg)';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              lightboxImg.style.transform = 'translateX(0) rotate(0deg)';
+              lightboxImg.style.opacity = '1';
+            });
+          });
         }, 300);
       } else if (diffX < -threshold || (diffX < -20 && swipeVelocity > 0.5)) {
-        // Swipe left - go to previous image
-        lightboxImg.style.transform = 'translateX(-100%) rotate(-20deg)';
+        // Swipe left - go to previous
+        lightboxImg.style.transform = 'translateX(-100%) rotate(-15deg)';
         lightboxImg.style.opacity = '0';
         setTimeout(() => {
           prevImage();
-          lightboxImg.style.transform = '';
-          lightboxImg.style.opacity = '';
+          lightboxImg.style.transition = 'none';
+          lightboxImg.style.transform = 'translateX(100%) rotate(15deg)';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              lightboxImg.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+              lightboxImg.style.transform = 'translateX(0) rotate(0deg)';
+              lightboxImg.style.opacity = '1';
+            });
+          });
         }, 300);
       } else {
         // Return to center

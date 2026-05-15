@@ -245,17 +245,22 @@
   z-index: 0;
 }
 
+@keyframes carouselFadeIn {
+  from { opacity: 0; transform: scale(1.05); }
+  to { opacity: 1; transform: scale(1); }
+}
+
 .carousel-img.active {
   opacity: 1;
   z-index: 1;
-  animation: carouselFadeIn 1s ease-in-out;
+  animation: carouselFadeIn 0.6s ease-out;
 }
 
 /* Heads Section */
 .heads-section {
   padding: 80px 0;
   position: relative;
-  background-color: #e5e5e5;
+  background-color: #d6d6d6;
   z-index: 2;
 }
 
@@ -367,7 +372,7 @@
 
 /* Hall of Fame - State Toppers */
 .hall-of-fame {
-  padding: 80px 0;
+  padding: 50px 0;
   background-color: var(--light-color);
 }
 
@@ -537,7 +542,7 @@
 /* Subject Toppers Section */
 .subject-toppers-section {
   padding: 80px 0;
-  background-color: #f0f0f0;
+ background-color: #d6d6d6;
 }
 
 .year-tabs {
@@ -881,7 +886,7 @@
 /* Map Section */
 .map-section {
   padding: 80px 0;
-  background-color: #e8e8e8;
+  background-color: #c2c2c2;
 }
 
 .map-container {

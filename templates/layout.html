@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{% block title %}{{ layout.site_name }}{% endblock %}</title>
 
-  <!-- Fonts & Icons -->
+  <!-- Performance: Preconnect to external domains -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com"/>
+
+  <!-- Fonts & Icons with font-display swap for faster loading -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'"/>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/siteicon.png') }}"/>
+
+  <!-- Smooth Scrolling CSS -->
+  <style>
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    *, *::before, *::after {
+      will-change: scroll-position;
+    }
+  </style>
 
   <!-- Global Styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"/>
@@ -72,7 +87,7 @@
   </footer>
   {% endif %}
 
-  <!-- JS -->
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <!-- JS - Deferred for faster page load -->
+  <script src="{{ url_for('static', filename='script.js') }}" defer></script>
 </body>
 </html>
