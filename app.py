@@ -157,9 +157,11 @@ def update_about_section():
     try:
         site_data = load_site_data()
 
-        # Update title and paragraphs
+        # Update title, moto, mission, vision
         site_data['about_section']['title'] = request.form['title']
-        site_data['about_section']['paragraphs'] = request.form.getlist('paragraphs')
+        site_data['about_section']['moto'] = request.form['moto']
+        site_data['about_section']['mission'] = request.form['mission']
+        site_data['about_section']['vision'] = request.form['vision']
 
         # Handle image replacements individually
         existing_images = site_data['about_section'].get('carousel_images', [])

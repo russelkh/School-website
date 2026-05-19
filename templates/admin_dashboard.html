@@ -353,10 +353,12 @@
       <div class="half">
         <label>Title</label>
         <input type="text" name="title" value="{{ data.about_section.title }}">
-        {% for p in data.about_section.paragraphs %}
-        <label>Paragraph {{ loop.index }}</label>
-        <textarea name="paragraphs">{{ p }}</textarea>
-        {% endfor %}
+        <label>Our Motto</label>
+        <textarea name="moto">{{ data.about_section.moto }}</textarea>
+        <label>Our Mission</label>
+        <textarea name="mission">{{ data.about_section.mission }}</textarea>
+        <label>Our Vision</label>
+        <textarea name="vision">{{ data.about_section.vision }}</textarea>
       </div>
     </div>
     <button type="submit" style="margin-top: 1rem;">Update About Section</button>

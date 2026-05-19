@@ -8,12 +8,9 @@
   },
   "about_section": {
     "title": "About Us",
-    "paragraphs": [
-      "Competitive Success Academy is a premier educational institution dedicated to nurturing young minds and preparing them for the challenges of tomorrow. Founded in 2019, our academy has consistently ranked among the top schools in the region.",
-      "The School\u2019s mission is to provide a learning environment that encourages children to bring out the best in themselves an enable their all-round development through the joy of learning, enduring values and the celebration of diversity.",
-      "At CSA, We recognize the imperative of important and educational experience that is world class in every respect and which prepares children for Global citizenship, a school that celebrates the culture of excellence and is an embodiment of values. We believe that a curriculum of excellence with a global dimension is control to the education of children to face the challenges of the 21st century with confidence and strength of character.",
-      " we don't just teach subjects - we teach students how to learn, adapt, and thrive in an ever-changing world. Our unique curriculum blends traditional values with innovative teaching methodologies."
-    ],
+    "moto": "In Excellence We Trust",
+    "mission": "The School's mission is to provide a learning environment that encourages children to bring out the best in themselves and enable their all-round development through the joy of learning, enduring values and the celebration of diversity.",
+    "vision": "At CSA, We recognize the imperative of important and educational experience that is world class in every respect and which prepares children for Global citizenship, a school that celebrates the culture of excellence and is an embodiment of values. We believe that a curriculum of excellence with a global dimension is key to the education of children to face the challenges of the 21st century with confidence and strength of character.",
     "carousel_images": [
       "static/images/about image0.jpeg",
       "static/images/csa about probable 2.jpeg",
@@ -143,7 +140,7 @@
       },
       {
         "label": "About",
-        "url": "/#about",
+        "url": "/#about-anchor",
         "type": "anchor"
       },
       {

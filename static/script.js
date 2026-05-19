@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Batch DOM queries
   const animatedElements = document.querySelectorAll(
-    '.animate, .animate-stagger, .about-text, .about-image, .topper-card, .section-title'
+    '.animate, .animate-stagger, .about-text, .topper-card, .section-title'
   );
 
   // Use single observer for all elements
@@ -63,41 +63,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // === About Section Carousel ===
-  const carousel = document.querySelector('.about-image.carousel');
-  const images = document.querySelectorAll('.carousel-img');
-  if (carousel && images.length > 0) {
+  // === About Section Vertical Wheel Carousel - iPhone Timer Style ===
+  const wheelCarousel = document.querySelector('.wheel-carousel');
+  const wheelItems = document.querySelectorAll('.wheel-item');
+  if (wheelCarousel && wheelItems.length > 0) {
     let currentIndex = 0;
-    const transitionTime = 2500;
+    const totalItems = wheelItems.length;
+    const autoRotateInterval = 1600;
 
-    const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'carousel-nav';
-    carousel.appendChild(dotsContainer);
-
-    images.forEach((_, index) => {
-      const dot = document.createElement('div');
-      dot.className = 'carousel-dot';
-      if (index === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => goToImage(index));
-      dotsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll('.carousel-dot');
-
-    function goToImage(index) {
-      images.forEach(img => img.classList.remove('active'));
-      dots.forEach(dot => dot.classList.remove('active'));
-      currentIndex = index;
-      images[currentIndex].classList.add('active');
-      dots[currentIndex].classList.add('active');
+    function updateWheel() {
+      wheelItems.forEach((item, index) => {
+        item.classList.remove('active', 'prev', 'next');
+        if (index === currentIndex) {
+          item.classList.add('active');
+        } else if (index === (currentIndex - 1 + totalItems) % totalItems) {
+          item.classList.add('prev');
+        } else if (index === (currentIndex + 1) % totalItems) {
+          item.classList.add('next');
+        }
+      });
     }
 
-    function nextImage() {
-      const nextIndex = (currentIndex + 1) % images.length;
-      goToImage(nextIndex);
+    function rotateWheel(direction) {
+      currentIndex = (currentIndex + direction + totalItems) % totalItems;
+      updateWheel();
     }
 
-    setInterval(nextImage, transitionTime);
+    // Auto rotate
+    setInterval(() => rotateWheel(1), autoRotateInterval);
+
+    // Initial state
+    updateWheel();
   }
 
   // === Subject Toppers Carousel ===
@@ -294,32 +290,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ========================================== */
-/* HERO PARALLAX EFFECT - Optimized           */
+/* HERO PARALLAX EFFECT - Simple fixed background */
 /* ========================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-  const hero = document.querySelector('.hero');
-  const bg = document.querySelector('.hero-background');
-
-  if (hero && bg) {
-    let ticking = false;
-    let lastScrollY = 0;
-
-    const updateParallax = () => {
-      const scrolled = window.scrollY;
-      if (scrolled <= hero.offsetHeight) {
-        bg.style.transform = `translateY(${scrolled * 0.4}px)`;
-      }
-      ticking = false;
-    };
-
-    // Use passive event listener for better scroll performance
-    window.addEventListener('scroll', () => {
-      lastScrollY = window.scrollY;
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-  }
-});

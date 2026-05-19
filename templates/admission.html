@@ -21,9 +21,9 @@
 <!-- Admission Section -->
 <section class="admission-section">
   <div class="container rules-container">
-    <h2 class="rules-title">Admission Rules</h2>
+    <h2 class="rules-title animate-slide-up">Admission Rules</h2>
     <div class="admission-content">
-      <div class="rules-card">
+      <div class="rules-card animate-slide-left">
         <div class="rules-header">
           <div class="rules-icon">
             <i class="fas fa-clipboard-list"></i>
@@ -38,9 +38,9 @@
           </div>
         </div>
       </div>
-      <div class="rules-cta">
+      <div class="rules-cta animate-slide-right">
         <button class="btn btn-primary btn-lg" onclick="showSchoolForm()">
-          <i class="fas fa-edit"></i> Apply for School
+          <i class="fas fa-edit"></i> Apply School
         </button>
         <button class="btn btn-outline btn-lg" onclick="showHostelForm()">
           <i class="fas fa-home"></i> Apply for Hostel
@@ -55,7 +55,7 @@
   <div class="container">
     <div class="hostel-content">
       <!-- Photo/Video Box -->
-      <div class="hostel-media">
+      <div class="hostel-media animate-slide-left">
         <div class="media-carousel">
           <div class="media-track" id="mediaTrack">
             {% for img_url in hostel_album %}
@@ -76,7 +76,7 @@
       </div>
 
       <!-- Features Card -->
-      <div class="features-card">
+      <div class="features-card animate-slide-right">
         <div class="features-grid">
           {% for feature in hostel_features %}
           <div class="feature-card" id="feature-{{ feature.id }}">
@@ -289,6 +289,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Auto slide
   setInterval(() => moveSlide(1), 4000);
+
+  // Slide-in animations
+  const animatedElements = document.querySelectorAll('.animate-slide-up, .animate-slide-left, .animate-slide-right');
+  const animationObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animationObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  animatedElements.forEach(el => animationObserver.observe(el));
 });
 
 // Modal functions
