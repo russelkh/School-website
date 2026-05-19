@@ -35,12 +35,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.7) 50%,
-    rgba(0, 0, 0, 0.9) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.5) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0.9) 100%);
   z-index: -1;
   pointer-events: none;
 }
@@ -325,14 +323,14 @@
 .wheel-item.prev {
   opacity: 0.4;
   filter: blur(3px) brightness(0.6);
-  transform: translateY(-80px) scale(0.7);
+  transform: translateY(-30px) scale(1);
 }
 
 .wheel-item.next {
   height: 100%;
   opacity: 0.4;
   filter: blur(3px) brightness(0.6);
-  transform: translateY(240px) scale(0.7);
+  transform: translateY(170px) scale(1);
 }
 
 .wheel-item img {
@@ -383,8 +381,15 @@
 }
 
 @keyframes carouselFadeIn {
-  from { opacity: 0; transform: scale(1.05); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .carousel-img.active {
@@ -495,13 +500,13 @@
   transform: translateX(100%);
 }
 
-.head-card.left .head-image:hover ~ #popup-right {
+.head-card.left .head-image:hover~#popup-right {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
 
-.head-card.right .head-image:hover ~ #popup-left {
+.head-card.right .head-image:hover~#popup-left {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
@@ -532,9 +537,9 @@
   border: 2px solid #ddd;
   display: flex;
   flex-direction: column;
-  /* Scroll-triggered staggered animation */
   opacity: 0;
   transform: translateY(40px);
+  transition-delay: calc((var(--index, 0)) * 0.05s);
 }
 
 .topper-card.show {
@@ -542,66 +547,18 @@
   transform: translateY(0);
 }
 
-/* Staggered delay for each card */
-.topper-card:nth-child(1) { transition-delay: 0s; }
-.topper-card:nth-child(2) { transition-delay: 0.1s; }
-.topper-card:nth-child(3) { transition-delay: 0.2s; }
-.topper-card:nth-child(4) { transition-delay: 0.3s; }
-.topper-card:nth-child(5) { transition-delay: 0.4s; }
-
 .topper-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 20px 40px rgba(165, 28, 48, 0.15);
-  border-color: var(--primary-color);
 }
 
-/* Position Badge - Top-Left Corner Ribbon Banner */
-.card-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.position-badge {
-  position: absolute;
-  top: -15px;
-  left: -10px;
-  width: 120px;
-  background: linear-gradient(135deg, var(--primary-color), #7a1515);
-  color: var(--white);
-  padding: 6px 0;
-  font-weight: 800;
-  font-size: 0.7rem;
-  text-align: center;
-  letter-spacing: 1px;
-  border: none;
-  box-shadow: none;
-  z-index: 10;
-}
-
-/* Bold borders */
-.position-badge::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border: 3px solid rgba(255, 255, 255, 0.4);
-}
-
-/* Card Image */
+/* Card Image - Image only, positioned relative for badge overlay */
 .card-image {
   width: 100%;
-  height: 200px;
+  height: 230px;
   overflow: hidden;
-  border-radius: 6px 6px 0 0;
+  border-radius: 10px 10px 0 0;
   position: relative;
-  z-index: 1;
 }
 
 .card-image img {
@@ -609,77 +566,116 @@
   height: 100%;
   object-fit: cover;
   transition: transform 0.5s ease;
+  display: block;
 }
 
 .topper-card:hover .card-image img {
   transform: scale(1.03);
 }
 
-/* Card Content - Aligned at bottom */
+/* Exam Achievement Banner - ON THE IMAGE ONLY at bottom */
+.exam-achievement-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.7rem;
+  z-index: 5;
+  margin: 0;
+  border-radius: 0;
+}
+
+.exam-achievement-banner.jee-banner {
+  background: linear-gradient(135deg, rgba(255, 152, 0, 0.92), rgba(247, 127, 0, 0.92));
+}
+
+.exam-achievement-banner.neet-banner {
+  background: linear-gradient(135deg, rgba(42, 157, 143, 0.92), rgba(29, 120, 112, 0.92));
+}
+
+.exam-achievement-banner.other-banner {
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.92), rgba(91, 75, 196, 0.92));
+}
+
+.exam-achievement-banner .exam-type {
+  font-size: 0.6rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+.exam-achievement-banner .achievement-text {
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+/* Card Header - Position badge sits below image, above name */
+.card-header {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+  pointer-events: auto;
+  background: transparent;
+}
+
+/* Position Badge - Below image, above name */
+.position-badge {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary-color), #7a1515);
+  color: var(--white);
+  padding: 6px 12px;
+  font-weight: 800;
+  font-size: 0.65rem;
+  text-align: center;
+  letter-spacing: 1px;
+  border: none;
+  box-shadow: 0 2px 8px rgba(165, 28, 48, 0.3);
+  border-radius: 4px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* Card Content - Name and description */
 .card-content {
-  padding: 14px;
+  padding: 12px 14px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  border-radius: 0 0 6px 6px;
+  justify-content: flex-start;
+  border-radius: 0 0 10px 10px;
 }
 
 .card-content h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--secondary-color);
   font-weight: 600;
-  margin: 0 0 6px 0;
+  margin: 0 0 4px 0;
 }
 
 .card-content p {
   color: var(--gray-500);
   font-weight: 400;
-  font-size: 0.85rem;
-  margin: 0 0 12px 0;
-}
-
-/* Exam Achievement Banner - Colored strip at bottom */
-.exam-achievement-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px 14px;
-  color: var(--white);
-  font-weight: 600;
   font-size: 0.8rem;
-  border-radius: 0 0 6px 6px;
-  margin: 0 -14px -14px -14px;
-}
-
-.exam-achievement-banner.jee-banner {
-  background: linear-gradient(135deg, #ff9800, #f77f00);
-}
-
-.exam-achievement-banner.neet-banner {
-  background: linear-gradient(135deg, #2a9d8f, #1d7870);
-}
-
-.exam-achievement-banner.other-banner {
-  background: linear-gradient(135deg, #6c5ce7, #5b4bc4);
-}
-
-.exam-achievement-banner .exam-type {
-  font-size: 0.7rem;
-  opacity: 0.9;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.exam-achievement-banner .achievement-text {
-  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
 }
 
 /* Subject Toppers Section */
 .subject-toppers-section {
   padding: 80px 0;
- background-color: #d6d6d6;
+  background-color: #d6d6d6;
 }
 
 .year-tabs {
@@ -1063,6 +1059,7 @@
     width: 90%;
     height: 300px;
     margin: 0 auto;
+    max-width: 90%;
   }
 
   .wheel-carousel {
@@ -1131,7 +1128,7 @@
   }
 
   .topper-card .card-image {
-    height: 180px;
+    height: 220px;
   }
 }
 
@@ -1197,10 +1194,17 @@
     line-height: 1.5;
   }
 
+  .about-image {
+    width: 100%;
+    transform: translateX(0);
+  }
+
   .about-image.carousel {
-    width: 95%;
+    width: 100%;
     height: 250px;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
   }
 
   .wheel-carousel {
@@ -1230,28 +1234,15 @@
     transform: translateX(-50%) translateY(165px) scale(0.8);
   }
 
-  .wheel-item {
-    height: 120px;
+  .wheel-item.prev,
+  .wheel-item.next {
+    display: none;
   }
 
   .wheel-item.active {
     transform: translateY(0) scale(1);
-  }
-
-  .wheel-item.prev {
-    transform: translateY(-130px) scale(0.85);
-    filter: blur(10px) brightness(0.5);
-    opacity: 0.7;
-  }
-
-  .wheel-item.next {
-    transform: translateY(130px) scale(0.85);
-    filter: blur(10px) brightness(0.5);
-    opacity: 0.7;
-  }
-
-  .wheel-item.active {
     filter: blur(0) brightness(1);
+    opacity: 1;
   }
 
   .carousel-img {
@@ -1288,8 +1279,8 @@
     transform: translateX(-50%) !important;
   }
 
-  .head-card.left .head-image:hover ~ #popup-right,
-  .head-card.right .head-image:hover ~ #popup-left,
+  .head-card.left .head-image:hover~#popup-right,
+  .head-card.right .head-image:hover~#popup-left,
   .head-card.middle .head-image:hover .tooltip-popup {
     opacity: 0 !important;
     pointer-events: none !important;
@@ -1307,60 +1298,34 @@
     overflow: visible;
   }
 
-  .topper-card img {
+  .card-image {
     height: 180px;
-    object-fit: cover;
-    object-position: top;
-  }
-
-  .topper-card h3 {
-    font-size: 1rem;
   }
 
   .exam-achievement-banner {
-    padding: 8px 10px;
-    font-size: 0.7rem;
+    padding: 6px 10px;
+    font-size: 0.65rem;
   }
 
   .exam-achievement-banner .exam-type {
-    font-size: 0.6rem;
+    font-size: 0.55rem;
   }
 
   .exam-achievement-banner .achievement-text {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
   }
 
   .position-badge {
-    top: -12px;
-    left: -8px;
-    width: 90px;
+    padding: 5px 10px;
     font-size: 0.6rem;
-    padding: 4px 0;
   }
 
-  .card-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
+  .card-content h3 {
+    font-size: 0.95rem;
   }
 
-  .ad-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .ad-image {
-    flex: 1;
-    width: 100%;
-    height: 300px;
-  }
-
-  .ad-video {
-    width: 100%;
-    padding: 0;
+  .card-content p {
+    font-size: 0.75rem;
   }
 }
 
@@ -1377,5 +1342,10 @@
 
   .topper-card h3 {
     font-size: 0.9rem;
+  }
+
+  .position-badge {
+    font-size: 0.6rem;
+    padding: 6px 10px;
   }
 }
