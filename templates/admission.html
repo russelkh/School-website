@@ -21,7 +21,7 @@
 <!-- Admission Section -->
 <section class="admission-section">
   <div class="container rules-container">
-    <h2 class="rules-title animate-slide-up">Admission Rules</h2>
+    <h2 class="rules-title animate-slide-up">School Admission Rules</h2>
     <div class="admission-content">
       <div class="rules-card animate-slide-left">
         <div class="rules-header">
@@ -53,6 +53,7 @@
 <!-- Hostel Section -->
 <section class="hostel-section">
   <div class="container">
+    <h2 class="rules-title animate-slide-up">Hostel Section</h2>
     <div class="hostel-content">
       <!-- Photo/Video Box -->
       <div class="hostel-media animate-slide-left">
@@ -93,86 +94,279 @@
 </section>
 
 <!-- Modals -->
-<!-- Admission Modal -->
+<!-- Admission Modal - Multi-Step Form -->
 <div id="admissionModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content admission-modal-content">
     <span class="close" onclick="closeModal('admissionModal')">&times;</span>
+    
+    <!-- Step Indicator -->
+    <div class="step-indicator">
+      <div class="step-progress">
+        <div class="step-progress-bar" id="progressBar"></div>
+      </div>
+      <div class="steps-container">
+        <div class="step-item active" data-step="1">
+          <div class="step-number">1</div>
+          <div class="step-title">Personal Details</div>
+        </div>
+        <div class="step-item" data-step="2">
+          <div class="step-number">2</div>
+          <div class="step-title">Contact & Family</div>
+        </div>
+        <div class="step-item" data-step="3">
+          <div class="step-number">3</div>
+          <div class="step-title">Social & Category</div>
+        </div>
+        <div class="step-item" data-step="4">
+          <div class="step-number">4</div>
+          <div class="step-title">Address & Course</div>
+        </div>
+        <div class="step-item" data-step="5">
+          <div class="step-number">5</div>
+          <div class="step-title">Academic & Docs</div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-header">
       <div class="modal-icon"><i class="fas fa-user-graduate"></i></div>
       <h2>Student Admission Form</h2>
     </div>
 
-    <form action="/send_email" method="POST" enctype="multipart/form-data">
+    <form id="admissionForm" action="/send_email" method="POST" enctype="multipart/form-data">
       <input type="hidden" name="_captcha" value="false">
 
-      <div class="form-section">
-        <h3><i class="fas fa-user"></i> Personal Information</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="fullName" required>
+      <!-- Step 1: Personal Details -->
+      <div class="form-step active" data-step="1">
+        <div class="form-section">
+          <h3><i class="fas fa-user"></i> Personal Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" name="fullName" required placeholder="As per Class X record">
+            </div>
+            <div class="form-group">
+              <label for="dob">Date of Birth <span class="required">*</span></label>
+              <input type="date" id="dob" name="dob" required>
+            </div>
           </div>
-          <div class="form-group">
-            <label for="dob">Date of Birth</label>
-            <input type="date" id="dob" name="dob" required>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="aadhaar">Aadhaar Number</label>
-            <input type="text" id="aadhaar" name="aadhaar" required maxlength="12" pattern="\d{12}" placeholder="12-digit">
-          </div>
-          <div class="form-group">
-            <label for="gender">Gender</label>
-            <select id="gender" name="gender" required>
-              <option value="">Select</option>
-              <option>Male</option>
-              <option>Female</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="photo">Upload Your Photo</label>
-          <input type="file" id="photo" name="photo" accept="image/*">
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3><i class="fas fa-users"></i> Guardian Information</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="guardianName">Guardian Name</label>
-            <input type="text" id="guardianName" name="guardianName" required>
-          </div>
-          <div class="form-group">
-            <label for="guardianPhone">Phone</label>
-            <input type="tel" id="guardianPhone" name="guardianPhone" required>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="guardianEmail">Email</label>
-          <input type="email" id="guardianEmail" name="guardianEmail">
-        </div>
-      </div>
-
-      <div class="form-section">
-        <h3><i class="fas fa-school"></i> Previous School</h3>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="schoolName">School Name</label>
-            <input type="text" id="schoolName" name="schoolName" required>
-          </div>
-          <div class="form-group">
-            <label for="marksheet">Marksheet</label>
-            <input type="file" id="marksheet" name="marksheet" accept=".pdf,.jpg,.jpeg,.png">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gender">Gender <span class="required">*</span></label>
+              <select id="gender" name="gender" required>
+                <option value="">Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bloodGroup">Blood Group</label>
+              <input type="text" id="bloodGroup" name="bloodGroup" placeholder="e.g., A+, O-">
+            </div>
           </div>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary btn-block">
-        <i class="fas fa-paper-plane"></i> Submit Application
-      </button>
+      <!-- Step 2: Contact & Family Details -->
+      <div class="form-step" data-step="2">
+        <div class="form-section">
+          <h3><i class="fas fa-phone"></i> Contact & Family Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="studentPhone">Student Mobile Number <span class="required">*</span></label>
+              <input type="tel" id="studentPhone" name="studentPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
+            </div>
+            <div class="form-group">
+              <label for="guardianPhone">Guardian Mobile Number <span class="required">*</span></label>
+              <input type="tel" id="guardianPhone" name="guardianPhone" required pattern="[0-9]{10}" placeholder="10-digit mobile number">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fatherName">Father Name <span class="required">*</span></label>
+              <input type="text" id="fatherName" name="fatherName" required>
+            </div>
+            <div class="form-group">
+              <label for="motherName">Mother Name <span class="required">*</span></label>
+              <input type="text" id="motherName" name="motherName" required>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Social & Category Details -->
+      <div class="form-step" data-step="3">
+        <div class="form-section">
+          <h3><i class="fas fa-sitemap"></i> Social & Category Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="religion">Religion <span class="required">*</span></label>
+              <select id="religion" name="religion" required>
+                <option value="">Select</option>
+                <option value="Hindu">Sanamahisam</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Muslim">Muslim</option>
+                <option value="Christian">Christian</option> 
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="category">Category <span class="required">*</span></label>
+              <select id="category" name="category" required>
+                <option value="">Select</option>
+                <option value="General">General</option>
+                <option value="OBC">OBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="differentlyAbled">Differently Abled Person <span class="required">*</span></label>
+              <select id="differentlyAbled" name="differentlyAbled" required>
+                <option value="">Select</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="orphan">Orphan <span class="required">*</span></label>
+              <select id="orphan" name="orphan" required>
+                <option value="">Select</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="bpl">BPL (Below Poverty Line) <span class="required">*</span></label>
+              <select id="bpl" name="bpl" required>
+                <option value="">Select</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4: Address & Course Details -->
+      <div class="form-step" data-step="4">
+        <div class="form-section">
+          <h3><i class="fas fa-map-marker-alt"></i> Address & Course Details</h3>
+          <div class="form-group">
+            <label for="permanentAddress">Permanent Address <span class="required">*</span></label>
+            <textarea id="permanentAddress" name="permanentAddress" required rows="3" placeholder="Enter full address"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="district">District <span class="required">*</span></label>
+              <input type="text" id="district" name="district" required>
+            </div>
+            <div class="form-group">
+              <label for="pincode">Pin Code <span class="required">*</span></label>
+              <input type="text" id="pincode" name="pincode" required pattern="[0-9]{6}" placeholder="6-digit pin code">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="subjectCombination">Subject Combination <span class="required">*</span></label>
+              <select id="subjectCombination" name="subjectCombination" required>
+                <option value="">Select</option>
+                <option value="PCM">PHY,CHEM,BIO,MATHS</option>
+                <option value="PCMC">PHY,CHEM,COMPSCI,MATHS</option>
+                <option value="PCBH">PHY,CHEM,BIO,HSC</option>
+                <option value="PCBH">PHY,CHEM,COMPSCI,HSC</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="electiveSubject">Elective Subject <span class="required">*</span></label>
+              <input type="text" id="electiveSubject" name="electiveSubject" required placeholder="e.g., Hindi, Economics">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5: Academic & Documents -->
+      <div class="form-step" data-step="5">
+        <div class="form-section">
+          <h3><i class="fas fa-school"></i> Academic Details</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="schoolName">Previous School Name <span class="required">*</span></label>
+              <input type="text" id="schoolName" name="schoolName" required>
+            </div>
+            <div class="form-group">
+              <label for="board">Board <span class="required">*</span></label>
+              <select id="board" name="board" required>
+                <option value="">Select</option>
+                <option value="CBSE">CBSE</option>
+                <option value="BOSEM">BOSEM</option>/option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="schoolAddress">Previous School Address <span class="required">*</span></label>
+            <textarea id="schoolAddress" name="schoolAddress" required rows="2" placeholder="Enter school address"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="gradingScale">Grading Scale <span class="required">*</span></label>
+              <select id="gradingScale" name="gradingScale" required>
+                <option value="">Select</option>
+                <option value="Percentage">Percentage</option>
+                <option value="CGPA">CGPA</option>
+                <option value="Grade">Grade</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="gradePercentage">Grade/Percentage <span class="required">*</span></label>
+              <input type="text" id="gradePercentage" name="gradePercentage" required placeholder="e.g., 85% or 8.5 CGPA">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="examRollNo">Exam Roll No. <span class="required">*</span></label>
+              <input type="text" id="examRollNo" name="examRollNo" required>
+            </div>
+            <div class="form-group">
+              <label for="yearOfPassing">Year of Passing <span class="required">*</span></label>
+              <input type="number" id="yearOfPassing" name="yearOfPassing" required min="2000" max="2099">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3><i class="fas fa-file-upload"></i> Document Upload</h3>
+          <div class="form-group">
+            <label for="scoreCard">Score Card / Admit Card Screenshot <span class="required">*</span></label>
+            <input type="file" id="scoreCard" name="scoreCard" required accept=".pdf,.jpg,.jpeg,.png" data-max-size="1048576">
+            <small class="file-hint">Max 1MB | Supported: PDF, JPG, PNG</small>
+          </div>
+          <div class="form-group">
+            <label for="passportPhoto">Passport Photo (Latest) <span class="required">*</span></label>
+            <input type="file" id="passportPhoto" name="passportPhoto" required accept="image/*" data-max-size="1048576">
+            <small class="file-hint">Max 1MB | Supported: JPG, PNG</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="form-navigation">
+        <button type="button" class="btn btn-outline btn-nav" id="prevBtn" onclick="previousStep()" style="display: none;">
+          <i class="fas fa-chevron-left"></i> Previous
+        </button>
+        <button type="button" class="btn btn-primary btn-nav" id="nextBtn" onclick="nextStep()">
+          Next <i class="fas fa-chevron-right"></i>
+        </button>
+        <button type="submit" class="btn btn-primary btn-nav" id="submitBtn" style="display: none;">
+          <i class="fas fa-paper-plane"></i> Submit Application
+        </button>
+      </div>
     </form>
   </div>
 </div>
@@ -252,7 +446,10 @@
 let slideIndex = 0;
 const track = document.getElementById('mediaTrack');
 const navContainer = document.getElementById('mediaNav');
+let currentStep = 1;
+const totalSteps = 5;
 
+// ========== CAROUSEL FUNCTIONS ==========
 function moveSlide(step) {
   const slides = track.querySelectorAll('.media-slide');
   slideIndex += step;
@@ -277,8 +474,103 @@ function currentSlide(index) {
   updateNav();
 }
 
-// Initialize carousel
+// ========== MULTI-STEP FORM FUNCTIONS ==========
+function showStep(step) {
+  // Hide all steps
+  document.querySelectorAll('.form-step').forEach(el => {
+    el.classList.remove('active');
+  });
+  
+  // Show current step
+  document.querySelector(`.form-step[data-step="${step}"]`).classList.add('active');
+  
+  // Update step indicator
+  document.querySelectorAll('.step-item').forEach(el => {
+    el.classList.remove('active');
+  });
+  document.querySelector(`.step-item[data-step="${step}"]`).classList.add('active');
+  
+  // Update progress bar
+  const progress = (step / totalSteps) * 100;
+  document.getElementById('progressBar').style.width = progress + '%';
+  
+  // Update button visibility
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  if (step === 1) {
+    prevBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'inline-block';
+  }
+  
+  if (step === totalSteps) {
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'inline-block';
+  } else {
+    nextBtn.style.display = 'inline-block';
+    submitBtn.style.display = 'none';
+  }
+}
+
+function nextStep() {
+  // Validate current step
+  if (validateStep(currentStep)) {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+      // Scroll to top of modal
+      document.querySelector('.modal-content').scrollTop = 0;
+    }
+  } else {
+    alert('Please fill in all required fields correctly.');
+  }
+}
+
+function previousStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+    document.querySelector('.modal-content').scrollTop = 0;
+  }
+}
+
+function validateStep(step) {
+  const formStep = document.querySelector(`.form-step[data-step="${step}"]`);
+  const requiredFields = formStep.querySelectorAll('[required]');
+  
+  let isValid = true;
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      field.classList.add('error');
+      isValid = false;
+    } else {
+      field.classList.remove('error');
+    }
+  });
+  
+  // Additional validation for file size (Step 5)
+  if (step === totalSteps) {
+    const fileInputs = formStep.querySelectorAll('input[type="file"]');
+    fileInputs.forEach(input => {
+      if (input.files.length > 0) {
+        const file = input.files[0];
+        const maxSize = parseInt(input.getAttribute('data-max-size'));
+        if (file.size > maxSize) {
+          alert(`File ${file.name} exceeds maximum size of 1MB`);
+          isValid = false;
+        }
+      }
+    });
+  }
+  
+  return isValid;
+}
+
+// ========== INITIALIZATION ==========
 document.addEventListener('DOMContentLoaded', () => {
+  // Initialize carousel
   const slides = track.querySelectorAll('.media-slide');
   slides.forEach((_, i) => {
     const dot = document.createElement('span');
@@ -300,9 +592,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, { threshold: 0.1 });
   animatedElements.forEach(el => animationObserver.observe(el));
+
+  // Initialize form step display
+  showStep(1);
+
+  // Add error class removal on input
+  document.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('change', () => {
+      field.classList.remove('error');
+    });
+  });
 });
 
-// Modal functions
+// ========== MODAL FUNCTIONS ==========
 function openModal(modalId) {
   document.getElementById(modalId).classList.add('show');
   document.body.style.overflow = 'hidden';
@@ -311,6 +613,13 @@ function openModal(modalId) {
 function closeModal(modalId) {
   document.getElementById(modalId).classList.remove('show');
   document.body.style.overflow = '';
+  
+  // Reset form if admission form
+  if (modalId === 'admissionModal') {
+    document.getElementById('admissionForm').reset();
+    currentStep = 1;
+    showStep(1);
+  }
 }
 
 function showSchoolForm() {

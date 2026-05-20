@@ -735,9 +735,6 @@ def add_hostel_image():
     return redirect(url_for('admin_dashboard', _anchor='tab-hostel_carousel_images'))
 
 
-
-
-
 @app.route('/admin/update/map_section', methods=['POST'])
 def update_map_section():
     try:
@@ -782,50 +779,131 @@ def admin_logout():
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
+    """
+    Handle multi-step admission form submission.
+    Collects all form data and sends a formatted email with attachments.
+    """
     try:
-        full_name = request.form['fullName']
-        dob = request.form['dob']
-        aadhaar = request.form['aadhaar']
-        gender = request.form['gender']
-        guardian_name = request.form['guardianName']
-        guardian_phone = request.form['guardianPhone']
-        guardian_email = request.form.get('guardianEmail', 'Not Provided')
-        school_name = request.form['schoolName']
+        # Step 1: Personal Details
+        full_name = request.form.get('fullName', 'N/A')
+        dob = request.form.get('dob', 'N/A')
+        gender = request.form.get('gender', 'N/A')
+        blood_group = request.form.get('bloodGroup', 'N/A')
 
-        photo_file = request.files.get('photo')
-        marksheet_file = request.files.get('marksheet')
+        # Step 2: Contact & Family Details
+        student_phone = request.form.get('studentPhone', 'N/A')
+        guardian_phone = request.form.get('guardianPhone', 'N/A')
+        father_name = request.form.get('fatherName', 'N/A')
+        mother_name = request.form.get('motherName', 'N/A')
 
-        subject = f"New Admission Form Submission - {full_name}"
+        # Step 3: Social & Category Details
+        religion = request.form.get('religion', 'N/A')
+        category = request.form.get('category', 'N/A')
+        differently_abled = request.form.get('differentlyAbled', 'N/A')
+        orphan = request.form.get('orphan', 'N/A')
+        bpl = request.form.get('bpl', 'N/A')
+
+        # Step 4: Address & Course Details
+        permanent_address = request.form.get('permanentAddress', 'N/A')
+        district = request.form.get('district', 'N/A')
+        pincode = request.form.get('pincode', 'N/A')
+        subject_combination = request.form.get('subjectCombination', 'N/A')
+        elective_subject = request.form.get('electiveSubject', 'N/A')
+
+        # Step 5: Academic & Documents
+        school_name = request.form.get('schoolName', 'N/A')
+        school_address = request.form.get('schoolAddress', 'N/A')
+        board = request.form.get('board', 'N/A')
+        grading_scale = request.form.get('gradingScale', 'N/A')
+        grade_percentage = request.form.get('gradePercentage', 'N/A')
+        exam_roll_no = request.form.get('examRollNo', 'N/A')
+        year_of_passing = request.form.get('yearOfPassing', 'N/A')
+
+        # File uploads
+        score_card_file = request.files.get('scoreCard')
+        passport_photo_file = request.files.get('passportPhoto')
+
+        # Format email body with all information
+        subject = f"📝 New Admission Application - {full_name}"
         body = f"""
- New Admission Application Received:
+================================================================================
+                    STUDENT ADMISSION APPLICATION FORM
+================================================================================
 
- Full Name: {full_name}
- Date of Birth: {dob}
- Aadhaar: {aadhaar}
- Gender: {gender}
+STEP 1: PERSONAL DETAILS
+────────────────────────────────────────────────────────────────────────────────
+Full Name:              {full_name}
+Date of Birth:          {dob}
+Gender:                 {gender}
+Blood Group:            {blood_group}
 
-Guardian Name: {guardian_name}
-Guardian Phone: {guardian_phone}
-Guardian Email: {guardian_email}
+STEP 2: CONTACT & FAMILY DETAILS
+────────────────────────────────────────────────────────────────────────────────
+Student Mobile Number:  {student_phone}
+Guardian Mobile Number: {guardian_phone}
+Father Name:            {father_name}
+Mother Name:            {mother_name}
 
-Previous School: {school_name}
-Photo: {'Attached' if photo_file else 'Not Uploaded'}
-Marksheet: {'Attached' if marksheet_file else 'Not Uploaded'}
-        """
+STEP 3: SOCIAL & CATEGORY DETAILS
+────────────────────────────────────────────────────────────────────────────────
+Religion:               {religion}
+Category:               {category}
+Differently Abled:      {differently_abled}
+Orphan:                 {orphan}
+BPL Status:             {bpl}
+
+STEP 4: ADDRESS & COURSE DETAILS
+────────────────────────────────────────────────────────────────────────────────
+Permanent Address:      {permanent_address}
+District:               {district}
+Pin Code:               {pincode}
+Subject Combination:    {subject_combination}
+Elective Subject:       {elective_subject}
+
+STEP 5: ACADEMIC DETAILS
+────────────────────────────────────────────────────────────────────────────────
+Previous School Name:   {school_name}
+Previous School Address:{school_address}
+Board:                  {board}
+Grading Scale:          {grading_scale}
+Grade/Percentage:       {grade_percentage}
+Exam Roll No.:          {exam_roll_no}
+Year of Passing:        {year_of_passing}
+
+DOCUMENTS
+────────────────────────────────────────────────────────────────────────────────
+Score Card/Admit Card:  {'Attached' if score_card_file else 'Not Uploaded'}
+Passport Photo:         {'Attached' if passport_photo_file else 'Not Uploaded'}
+
+================================================================================
+Submission Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+================================================================================
+"""
 
         msg = Message(subject, recipients=['rsl.khomdram@gmail.com'])
         msg.body = body
 
-        if photo_file:
-            msg.attach(secure_filename(photo_file.filename), photo_file.mimetype, photo_file.read())
-        if marksheet_file:
-            msg.attach(secure_filename(marksheet_file.filename), marksheet_file.mimetype, marksheet_file.read())
+        # Attach files if present
+        if score_card_file:
+            msg.attach(
+                secure_filename(score_card_file.filename),
+                score_card_file.mimetype,
+                score_card_file.read()
+            )
+
+        if passport_photo_file:
+            msg.attach(
+                secure_filename(passport_photo_file.filename),
+                passport_photo_file.mimetype,
+                passport_photo_file.read()
+            )
 
         mail.send(msg)
         return render_template('thankyou.html')
 
     except Exception as e:
-        return f"❌ Error: {str(e)}"
+        print(f"Email Error: {str(e)}")
+        return f"❌ Error submitting form: {str(e)}", 500
 
 @app.route('/send_hostel_email', methods=['POST'])
 def send_hostel_email():
@@ -838,14 +916,20 @@ def send_hostel_email():
 
         subject = f"🏠 Hostel Application - {full_name}"
         body = f"""
- Hostel Application Received:
+================================================================================
+                        HOSTEL APPLICATION
+================================================================================
 
- Full Name: {full_name}
- Date of Birth: {dob}
- Mobile: {mobile}
- Gender: {gender}
- Class Applied: {class_applied}
-        """
+Full Name:              {full_name}
+Date of Birth:          {dob}
+Mobile Number:          {mobile}
+Gender:                 {gender}
+Class Applied For:      {class_applied}
+
+================================================================================
+Submission Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+================================================================================
+"""
 
         msg = Message(subject, recipients=['rsl.khomdram@gmail.com'])
         msg.body = body
@@ -853,7 +937,8 @@ def send_hostel_email():
         return render_template('thankyou.html')
 
     except Exception as e:
-        return f"❌ Hostel form error: {str(e)}"
+        print(f"Hostel Email Error: {str(e)}")
+        return f"❌ Hostel form error: {str(e)}", 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
