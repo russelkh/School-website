@@ -150,7 +150,6 @@ def update_section(section):
 
     return redirect(url_for('admin_dashboard', updated='true'))
 
-from PIL import Image
 
 @app.route('/admin/update/about_section', methods=['POST'])
 def update_about_section():
@@ -857,4 +856,4 @@ def send_hostel_email():
         return f"❌ Hostel form error: {str(e)}"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080, debug=True)

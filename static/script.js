@@ -89,8 +89,38 @@ document.addEventListener('DOMContentLoaded', function () {
       updateWheel();
     }
 
-    // Auto rotate
-    setInterval(() => rotateWheel(1), autoRotateInterval);
+    let rotateTimer = null;
+
+    function startRotation() {
+      if (!rotateTimer) {
+        rotateTimer = setInterval(() => rotateWheel(1), autoRotateInterval);
+      }
+    }
+
+    function stopRotation() {
+      if (rotateTimer) {
+        clearInterval(rotateTimer);
+        rotateTimer = null;
+      }
+    }
+
+    // Start/stop rotation based on visibility (threshold: 0 means any part visible triggers it)
+    const carouselObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          startRotation();
+        } else {
+          stopRotation();
+        }
+      });
+    }, { threshold: 0 });
+
+    const aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+      carouselObserver.observe(aboutSection);
+    } else {
+      carouselObserver.observe(wheelCarousel);
+    }
 
     // Initial state
     updateWheel();
